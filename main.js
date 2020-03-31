@@ -37,7 +37,7 @@ function createIndexWindow() {
     const win = new BrowserWindow({
         title: "kankan-win-" + new Date().getTime(),
         titleBarStyle: "hidden",
-        width: 1366,
+        width: 1150,
         minWidth: 400,
         height: 790,
         minHeight: 300,
@@ -115,7 +115,7 @@ function getFileName(file) {
         return ""
     }
     var obj = file.lastIndexOf("/");
-    return file.substr(obj + 1).toLowerCase();//文件名
+    return file.substr(obj + 1);//文件名
 }
 
 function getFileType(file) {

@@ -83,7 +83,7 @@
         }
 
         .title {
-            user-select:none;
+            user-select: none;
             font-size: 13px;
             overflow-x: hidden;
             text-align: center;
@@ -104,7 +104,7 @@
             height: 100%;
             color: #fff;
             padding: 0 20px;
-            background: rgba(5,5,5,0.5);
+            background: rgba(5, 5, 5, 0.5);
             /* visibility: hidden; */
             opacity: 0;
         }
@@ -114,7 +114,7 @@
         }
 
         .btn-txt {
-            user-select:none;
+            user-select: none;
             position: relative;
             top: 50%;
             /* transform: translateY( -50% ); */
@@ -282,10 +282,18 @@
         const { clipboard } = require('electron') //剪切板
         const nativeImage = require('electron').nativeImage
 
+        function getFileName(file) {
+            if (file == "") {
+                return ""
+            }
+            var obj = file.lastIndexOf("/");
+            return file.substr(obj + 1);//文件名
+        }
+
         const menu = new Menu()
         menu.append(new MenuItem({
             label: '复制文件名', click() {
-                clipboard.writeText(getCurrentImg())
+                clipboard.writeText(getFileName(getCurrentImg()))
             }
         }))
         menu.append(new MenuItem({ type: 'separator' }))
