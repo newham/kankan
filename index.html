@@ -70,7 +70,7 @@
             /* border-radius: 5px; */
             /* background: #eee; */
             /* padding: 2px; */
-            display: block;
+            display: none;
             /* font-size: 12; */
             position: fixed;
             bottom: 20px;
@@ -83,6 +83,7 @@
         }
 
         .title {
+            user-select:none;
             font-size: 13px;
             overflow-x: hidden;
             text-align: center;
@@ -94,6 +95,29 @@
             height: 22px;
             width: 70px;
             background: var(--title-bg-color);
+        }
+
+        .btn-to {
+            cursor: pointer;
+            position: fixed;
+            top: 0;
+            height: 100%;
+            color: #fff;
+            padding: 0 20px;
+            background: rgba(5,5,5,0.5);
+            /* visibility: hidden; */
+            opacity: 0;
+        }
+
+        .btn-to:hover {
+            opacity: 1;
+        }
+
+        .btn-txt {
+            user-select:none;
+            position: relative;
+            top: 50%;
+            /* transform: translateY( -50% ); */
         }
     </style>
 </head>
@@ -107,10 +131,11 @@
                 <button onclick="openImg()">打开图片</button>
             </div>
         </div>
-        <div class="tool">
-            <button onclick="previous()">上一张</button>
-            <!-- <button onclick="rotate()">旋转</button> -->
-            <button onclick="next()">下一张</button>
+        <div style="right: 0;" class="btn-to" onclick="next()">
+            <div class="btn-txt">下一张</div>
+        </div>
+        <div style="left: 0;" class="btn-to" onclick="previous()">
+            <div class="btn-txt">上一张</div>
         </div>
         <div class="title-bar" ondblclick="maxWindow()">
             <label id="title" class="title"></label>
