@@ -1,0 +1,49 @@
+{
+  "name": "kankan",
+  "version": "0.1.0",
+  "description": "a tool to look picture",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build_mac": "electron-builder build --mac --x64"
+  },
+  "build": {
+    "productName": "kankan",
+    "appId": "cn.liuhan.kankan",
+    "electronDownload": {
+      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    },
+    "directories": {
+      "output": "out"
+    },
+    "mac": {
+      "icon": "./icon.icns"
+    },
+    "win": {
+      "icon": "./icon.ico"
+    },
+    "fileAssociations": [
+      {
+        "ext": ["jpg","jpeg"],
+        "description": "jpg",
+        "icon": "./icon.icns",
+        "role": "Viewer",
+        "isPackage": false
+      },
+      {
+        "ext": "png",
+        "description": "png",
+        "icon": "./icon.icns",
+        "role": "Viewer",
+        "isPackage": false
+      }
+    ]
+  },
+  "author": "liu han",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.2.0",
+    "electron-builder": "^22.4.1"
+  }
+}

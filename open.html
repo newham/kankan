@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        html,
+        body {
+            background: #444;
+            -webkit-app-region: drag;
+        }
+
+        :root {
+            --btn-h: 30px;
+            --btn-w: 80%;
+        }
+
+        input {
+            background: #eee;
+            padding: 0px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="height: 100px;"></div>
+    <div style="margin: 0 auto;">
+        <table style="margin: 0 auto;">
+            <tr>
+                <td style="text-align: right;">
+                    <img src="icon.ico" height="64px">
+                </td>
+                <td style="text-align: left;">
+                    <button onclick="openWin()">Kan Kan</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    const { remote, ipcRenderer } = require('electron')
+    const { dialog } = require('electron').remote;
+
+    function openWin() {
+        dialog.showOpenDialog({
+            title: "打开文件",
+            defaultPath: "",
+            properties: ['openFile'],
+            filters: [
+                { name: 'Img', extensions: ['png', 'jpg', 'jpeg'] },
+            ]
+        }).then(result => {
+            if (result.filePaths.length < 1) {
+                return false
+            }
+            ipcRenderer.send('openImg', result.filePaths[0])
+        }).catch(err => {
+            alert(err)
+        })
+    }
+
+    ipcRenderer.on('openImg-cb', (event, msg) => {
+        alert(msg)
+    })
+</script>
+
+</html>
