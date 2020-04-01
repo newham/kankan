@@ -2,8 +2,13 @@ var menuLock = false;
 
 function initParams() {
     var img = document.getElementById("img")
-    x = (document.body.offsetWidth - img.offsetWidth) / 2
-    y = (document.body.offsetHeight - img.offsetHeight) / 2
+    x = 0
+    y = 0
+    if (img) {
+        x = (document.body.offsetWidth - img.offsetWidth) / 2
+        y = (document.body.offsetHeight - img.offsetHeight) / 2
+    }
+
     params = {
         zoomVal: 1,
         left: x,
@@ -12,17 +17,31 @@ function initParams() {
         currentY: 0,
         flag: false
     };
-    img.style.left = parseInt(params.left) + "px";
-    img.style.top = parseInt(params.top) + "px";
-    img.style.transform = "scale(" + params.zoomVal + ")";
+
+    if (img) {
+        img.style.left = parseInt(params.left) + "px";
+        img.style.top = parseInt(params.top) + "px";
+        img.style.transform = "scale(" + params.zoomVal + ")";
+    }
 }
+
+
 //图片缩放
 function bbimg(o) {
+
     var o = o.getElementsByTagName("img")[0];
+
     params.zoomVal += event.wheelDelta / 1200;
     // alert(parseInt(event.clientX*params.zoomVal));
+
+    // console.log(params.left, ',', params.top, ',', event.pageX, ',', event.pageY,',',o.offsetHeight*params.zoomVal)
+
     // 设置放大的中心点
-    // o.style.transformOrigin = event.clientX * params.zoomVal + "px " + event.clientY * params.zoomVal + "px";
+    //计算鼠标在图片中的位置比例
+    // X = (event.pageX - params.left)/(o.offsetWidth) /params.zoomVal *100
+    // console.log(X+'%' )
+    // o.style.transformOrigin = X + "px " + Y + "px";
+    // 放大
     if (params.zoomVal >= 0.2) {
         o.style.transform = "scale(" + params.zoomVal + ")";
     } else {
@@ -30,14 +49,32 @@ function bbimg(o) {
         o.style.transform = "scale(" + params.zoomVal + ")";
         return false;
     }
+    //移动
+    // if (X != 0 || Y != 0) {
+    //     params.left = params.left - (event.pageX - X)/params.zoomVal
+    //     params.top = params.top - (event.pageY - Y)/params.zoomVal
+    //     o.style.left = params.left + 'px'
+    //     o.style.top = params.top + 'px'
+    // }
+    // X = event.pageX
+    // Y = event.pageY
 }
 //获取相关CSS属性
 var getCss = function (o, key) {
     return o.currentStyle ? o.currentStyle[key] : document.defaultView.getComputedStyle(o, false)[key];
 };
+
+function isDrag() {
+    // console.log(params.left,',',params.top)
+    if (params.zoomVal <= 1) {
+        return false
+    }
+    return true
+}
+
 //拖拽的实现
 var startDrag = function (bar, target, callback) {
-   
+
     if (getCss(target, "left") !== "auto") {
         params.left = getCss(target, "left");
     }
@@ -46,7 +83,10 @@ var startDrag = function (bar, target, callback) {
     }
     //o是移动对象
     bar.onmousedown = function (event) {
-        if (event.button == 2||menuLock){
+        if (!isDrag()) {
+            return false
+        }
+        if (event.button == 2 || menuLock) {
             return false
         }
         params.flag = true;
@@ -62,7 +102,10 @@ var startDrag = function (bar, target, callback) {
         params.currentY = e.clientY;
     };
     document.onmouseup = function () {
-        if (event.button == 2||menuLock) {
+        if (!isDrag()) {
+            return false
+        }
+        if (event.button == 2 || menuLock) {
             return false
         }
         params.flag = false;
@@ -74,6 +117,10 @@ var startDrag = function (bar, target, callback) {
         }
     };
     document.onmousemove = function (event) {
+        //原始大小禁止拖动
+        if (!isDrag()) {
+            return false
+        }
         if (menuLock) {
             return false
         }

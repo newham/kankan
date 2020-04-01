@@ -1,8 +1,11 @@
-const { app, BrowserWindow ,ipcMain} = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const fs = require('fs');
 global.data = []
 
 function createWindow() {
+    // 绑定数据
+    setGlobalData()
+    // 创建窗口
     if (getInputFile() == "") {
         createOpenWindow()
     } else {
@@ -24,13 +27,13 @@ function createOpenWindow() {
             nodeIntegration: true
         }
     })
-    // 绑定数据
-    setGlobalData()
 
     win.loadFile('open.html')
 
     // 打开开发者工具
-    // win.webContents.openDevTools()
+    if (process.argv.includes('-t')) {
+        win.webContents.openDevTools()
+    }
 }
 function createIndexWindow() {
     // 创建浏览器窗口
@@ -46,14 +49,13 @@ function createIndexWindow() {
         }
     })
 
-    // 绑定数据
-    setGlobalData()
-
     // 并且为你的应用加载index.html
     win.loadFile('index.html')
 
     // 打开开发者工具
-    // win.webContents.openDevTools()
+    if (process.argv.includes('-t')) {
+        win.webContents.openDevTools()
+    }
 }
 
 // This method will be called when Electron has finished
@@ -95,8 +97,8 @@ app.on("open-file", (event, file) => {
 });
 
 function getInputFile() {
-    if (process.argv.length >= 3 && inputFile == "") {
-        inputFile = process.argv[2] //供测试用
+    if (process.argv.length >= 3 && inputFile == "" && process.argv[2] != '-t') {
+        inputFile = process.argv[2]//供测试用
     }
     return inputFile
 }
@@ -176,15 +178,15 @@ function getImgs(inputFile, folderPath) {
 }
 
 app.openFile = (file) => {
-    
+
 }
 
 ipcMain.on('openImg', (event, file) => {
-    fs.open(file,(err)=>{
-        if(err){
-            console.log('open',file,'failed')
-            event.reply('openImg-cb', 'ERROR\n open '+file+' failed')
-        }else{
+    fs.open(file, (err) => {
+        if (err) {
+            console.log('open', file, 'failed')
+            event.reply('openImg-cb', 'ERROR\n open ' + file + ' failed')
+        } else {
             inputFile = file
             createIndexWindow()
             BrowserWindow.fromId(1).close()

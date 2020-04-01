@@ -18,24 +18,45 @@
             --btn-w: 80%;
         }
 
-        input {
+        button {
+            padding: 10px;
+            border-radius: 3px;
             background: #eee;
-            padding: 0px;
-            border-radius: 5px;
+            color: #333;
+            border: 0;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        button:hover {
+            background: #44C5FB;
+            color: #eee;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        table,
+        tr,
+        td {
+            border: 0;
         }
     </style>
 </head>
 
 <body>
-    <div style="height: 100px;"></div>
+    <div style="height: 60px;"></div>
     <div style="margin: 0 auto;">
         <table style="margin: 0 auto;">
             <tr>
                 <td style="text-align: right;">
                     <img src="icon.ico" height="64px">
                 </td>
-                <td style="text-align: left;">
-                    <button onclick="openWin()">Kan Kan</button>
+                <td style="text-align: left;color: #44C5FB;font-size: 18px;">KanKan</td>
+
+            </tr>
+            <tr>
+                <td style="text-align: left;" colspan="2">
+                    <button onclick="openWin()">打开图片</button>
                 </td>
             </tr>
         </table>

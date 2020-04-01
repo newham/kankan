@@ -125,11 +125,7 @@
 <body>
     <div class="container">
         <div class="main" id="div" onmousewheel="return bbimg(this)">
-            <img class="img" id="img" ondblclick="initParams()" onload="resize()" />
-            <div id="open" style="padding: 5px;text-align: center;display: none;margin-top: 60px;">
-                <input type="file" id="openFile">
-                <button onclick="openImg()">打开图片</button>
-            </div>
+            <img class="img" id="img" ondblclick="initParams()" onload="resize()">
         </div>
         <div style="right: 0;" class="btn-to" onclick="next()">
             <div class="btn-txt">下一张</div>
@@ -163,27 +159,42 @@
         }
 
         function showOpenFile() {
-            document.getElementById("open").style.display = 'block'
+            // document.getElementById("open").style.display = 'block'
         }
 
         function setImg(id) {
-            var img = document.getElementById("img")
-            img.style.visibility = 'hidden'
             //没有输入
             if (data.imgs.length < 1) {
-                img.style.display = 'none'
                 showOpenFile()
                 return
             }
-
             //有输入
             initParams();
             if (id < 0 || id >= data.imgs.length) {
                 id = 0
             }
+            // // 删除之前的img
+            // if (div.firstChild) {
+            //     div.removeChild(div.firstChild)
+            // }
+            // 重绘新img
+            setImgSrc(data.imgs[id])
+            // set title
+            setTitle(getFileName(data.imgs[id]))
+        }
 
-            img.src = data.imgs[id];
-            document.getElementById("title").innerText = data.imgs[id]
+        function setImgSrc(src) {
+            img = document.getElementById('img')
+            img.style.visibility = 'hidden'
+            img.src = src
+        }
+
+        // function getImgHtml(src) {
+        //     return '<img class="img" id="img" ondblclick="initParams()" onload="resize()" src="' + src + '" style="visibility:hidden"/>'
+        // }
+
+        function setTitle(title) {
+            document.getElementById("title").innerText = title
         }
 
         function next() {
@@ -209,6 +220,14 @@
             return data.imgs[data.current]
         }
 
+        function getFileName(file) {
+            if (file == "") {
+                return ""
+            }
+            var obj = file.lastIndexOf("/");
+            return file.substr(obj + 1);//文件名
+        }
+
         var params = {
             zoomVal: 1,
             left: 0,
@@ -222,6 +241,7 @@
             remote.getCurrentWindow().close()
         }
 
+        // 监听键盘事件
         document.onkeydown = function (event) {
             event = event || window.event;/*||为或语句，当IE不能识别event时候，就执行window.event 赋值*/
             // console.log(event.keyCode);
@@ -242,11 +262,6 @@
             }
         }
 
-
-        setImg(data.current);
-        //
-        startDrag(document.getElementById("img"), document.getElementById("img"))
-        //
         function resize() {
             var img = document.getElementById('img');
             initParams()
@@ -264,31 +279,17 @@
             initParams()
         };
 
-        // function rotate(){
-        //     var img = document.getElementById('img');
-        //     img.style.transform = 'rotate('+90+'deg)';
-        // }
-
-        function openImg() {
-            remote.app.openFile('hi')
-        }
-
-
-
+        // 绘制图片
+        setImg(data.current);
+        // 监听拖拽、放大
+        startDrag(document.getElementById("img"), document.getElementById("img"))
     </script>
 
     <script language="javascript">
         const { Menu, MenuItem } = remote
         const { clipboard } = require('electron') //剪切板
         const nativeImage = require('electron').nativeImage
-
-        function getFileName(file) {
-            if (file == "") {
-                return ""
-            }
-            var obj = file.lastIndexOf("/");
-            return file.substr(obj + 1);//文件名
-        }
+        const exec = require('child_process').exec
 
         const menu = new Menu()
         menu.append(new MenuItem({
@@ -304,6 +305,17 @@
             }
         }))
         menu.append(new MenuItem({ type: 'separator' }))
+        menu.append(new MenuItem({
+            label: '设为壁纸', click() {
+                img = getCurrentImg()
+                workerProcess = exec("osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file \""+img+"\"'")
+                // 打印错误的后台可执行程序输出
+                workerProcess.stderr.on('data', function (data) {
+                    console.log('stderr: ' + data);
+                });
+            }
+        }))
+        menu.append(new MenuItem({ type: 'separator' }))
         menu.append(new MenuItem({ label: '上一张', click() { next() } }))
         menu.append(new MenuItem({ label: '下一张', click() { previous() } }))
         // menu.append(new MenuItem({ type: 'separator' }))
@@ -312,12 +324,12 @@
             menuLock = false;
         })
 
-
         window.addEventListener('contextmenu', (e) => {
             menuLock = true;
             e.preventDefault()
             menu.popup({ window: remote.getCurrentWindow() })
         }, false)
+
     </script>
 </body>
 
