@@ -1,10 +1,25 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu } = require('electron')
 const fs = require('fs');
 global.data = []
+let inputFile = ""
+
+function createMenu() {
+    const template = [
+        {
+            label: "KanKan",
+            submenu: [
+                { label: "Quit", accelerator: "CmdOrCtrl+Q", click: function () { app.quit(); } },
+                { type: 'separator' },
+                { label: "About", click: function () { } },
+            ]
+        },
+    ];
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+}
 
 function createWindow() {
-    // 绑定数据
-    setGlobalData()
+    // 创建菜单
+    createMenu()
     // 创建窗口
     if (getInputFile() == "") {
         createOpenWindow()
@@ -28,6 +43,9 @@ function createOpenWindow() {
         }
     })
 
+    // 绑定数据
+    setGlobalData()
+
     win.loadFile('open.html')
 
     // 打开开发者工具
@@ -48,6 +66,9 @@ function createIndexWindow() {
             nodeIntegration: true
         }
     })
+
+    // 绑定数据
+    setGlobalData()
 
     // 并且为你的应用加载index.html
     win.loadFile('index.html')
@@ -140,10 +161,8 @@ function isImg(file) {
     }
 }
 
-var inputFile = ""
-
 function setGlobalData() {
-    global.data.push(getImgs(getFileName(getInputFile()), getPath(getInputFile())))
+    global.data.push(getImgs(getFileName(inputFile), getPath(inputFile)))
 }
 
 function getImgs(inputFile, folderPath) {

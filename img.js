@@ -65,8 +65,16 @@ var getCss = function (o, key) {
 };
 
 function isDrag() {
+    // console.log(params.currentX)
     // console.log(params.left,',',params.top)
-    if (params.zoomVal <= 1) {
+    img = document.getElementById('img')
+    h = img.offsetHeight * params.zoomVal
+    w = img.offsetWidth * params.zoomVal
+    if (params.currentX != 0 || params.currentY != 0) {
+        return true
+    } else if (params.zoomVal <= 1) {
+        return false
+    } else if (h < document.body.offsetHeight && w < document.body.offsetWidth) {
         return false
     }
     return true
