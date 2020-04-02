@@ -64,7 +64,7 @@
             background: var(--btn-tool-bg-active);
         }
 
-        button:disabled{
+        button:disabled {
             background-image: var(--btn-tool-img-disabled);
             color: var(--btn-tool-color-disabled);
         }
@@ -384,26 +384,9 @@
     </script>
     <script>
         const { ipcRenderer } = require('electron')
-        const { dialog } = require('electron').remote;
 
         function openFileWin() {
-            dialog.showOpenDialog({
-                title: "打开文件",
-                defaultPath: "",
-                properties: ['openFile'],
-                filters: [
-                    { name: 'Img', extensions: ['png', 'jpg', 'jpeg'] },
-                ]
-            }).then(result => {
-                if (result.filePaths.length < 1) {
-                    console.log('open win closed')
-                    return false
-                }
-                console.log('open', result.filePaths[0])
-                ipcRenderer.send('openImg', result.filePaths[0])
-            }).catch(err => {
-                alert(err)
-            })
+            ipcRenderer.send('openImg','')
         }
 
         ipcRenderer.on('openImg-cb', (event, msg) => {
@@ -516,7 +499,7 @@
             e.preventDefault()
         }, false)
 
-        function showMenu(){
+        function showMenu() {
             menuLock = true;
             menu.popup({ window: remote.getCurrentWindow() })
         }

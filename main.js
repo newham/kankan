@@ -1,8 +1,9 @@
-const { app, BrowserWindow, ipcMain, Menu, MenuItem, nativeTheme } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu, MenuItem, nativeTheme, dialog, screen } = require('electron')
 const fs = require('fs');
 
 global.data = []
 let inputFile = ""
+let winCount = 0
 
 function createMenu() {
     var template = [
@@ -14,6 +15,20 @@ function createMenu() {
                 {
                     label: "关于", click: function () {
                         app.showAboutPanel()
+                    }
+                },
+            ]
+        },
+        {
+            label: "文件",
+            submenu: [
+                {
+                    label: "打开", accelerator: "CmdOrCtrl+N", click: function () {
+                        showOpenFileWin((ok) => {
+                            if (ok) {
+                                createWindow()
+                            }
+                        })
                     }
                 },
             ]
@@ -37,46 +52,31 @@ function createWindow() {
     createIndexWindow()
 }
 
-function createOpenWindow() {
-    // 创建浏览器窗口
-    const win = new BrowserWindow({
-        title: "kankan-openwin-" + new Date().getTime(),
-        titleBarStyle: "hidden",
-        resizable: false,
-        width: 600,
-        // minWidth: 400,
-        height: 300,
-        // minHeight: 300,
-        webPreferences: {
-            nodeIntegration: true
-        }
-    })
-
-    // 绑定数据
-    setGlobalData()
-
-    win.loadFile('open.html')
-
-    // 打开开发者工具
-    if (process.argv.includes('-t')) {
-        win.webContents.openDevTools()
-    }
-}
 function createIndexWindow() {
+    dW = screen.getPrimaryDisplay().workAreaSize.width
+    dH = screen.getPrimaryDisplay().workAreaSize.height
+    w = 1150
+    h = 790
+    x = (dW - w) / 2
+    y = (dH - h) / 2
+    // console.log(dW, dH, w, h, x, y, winCount, X, Y)
     // 创建浏览器窗口
     const win = new BrowserWindow({
         title: getFileName(inputFile),
         titleBarStyle: "hiddenInset",
-        width: 1150,
+        x: parseInt(x + 10 * winCount),
+        y: parseInt(y + 10 * winCount), //设置偏移
+        width: w,
         minWidth: 650,
-        height: 790,
+        height: h,
         minHeight: 450,
         webPreferences: {
             nodeIntegration: true
         }
     })
+    winCount += 1
 
-    // 设置偏移
+    // 设置dock展示的文件名
 
     // 绑定数据
     setGlobalData()
@@ -178,8 +178,8 @@ function setGlobalData() {
     global.data.push(getImgs(getInputFile()))
 }
 
-function resetGlobalData(id, data) {
-    global.data[id] = data
+function resetGlobalData(id) {
+    global.data[id] = getImgs(inputFile)
 }
 
 function getImgs(imgFile) {
@@ -215,15 +215,13 @@ function getImgs(imgFile) {
     return imgsData
 }
 
-ipcMain.on('openImg', (event, file) => {
-    fs.open(file, (err) => {
-        if (err) {
-            console.log('open', file, 'failed')
-            event.reply('openImg-cb', 'ERROR\n open ' + file + ' failed')
-        } else {
-            inputFile = file
-            resetGlobalData(0, getImgs(file))
+ipcMain.on('openImg', (event) => {
+    showOpenFileWin((ok) => {
+        if (ok) {
+            resetGlobalData(0)
             event.reply('openImg-cb', 'ok')
+        } else {
+            event.reply('openImg-cb', 'failed')
         }
     })
 })
@@ -235,3 +233,27 @@ nativeTheme.on('updated', () => {
         win.webContents.send('themeChanged', isDark)
     })
 })
+
+function showOpenFileWin(f) {
+    dialog.showOpenDialog({
+        title: "打开文件",
+        defaultPath: "",
+        properties: ['openFile'],
+        filters: [
+            { name: 'Img', extensions: ['png', 'jpg', 'jpeg'] },
+        ]
+    }).then(result => {
+        if (result.filePaths.length < 1) {
+            console.log('open win closed')
+            f(false)
+            return false
+        }
+        console.log('open', result.filePaths[0])
+        // ipcRenderer.send('openImg', result.filePaths[0])
+        inputFile = result.filePaths[0]
+        // 调用f
+        f(true)
+    }).catch(err => {
+        alert(err)
+    })
+}
