@@ -6,14 +6,8 @@
     <title>Hello World!</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" type="text/css" href="static/css/light.css" id="theme-css" />
     <style>
-        :root {
-            --title-bar-h: 22px;
-            --title-bg-color: #444;
-            --title-color: #eee;
-            --bg-color: #333;
-        }
-
         body,
         html {
             height: 100%;
@@ -34,11 +28,61 @@
             top: 0;
             left: 0;
             text-align: center;
-            background-color: var(--title-bg-color);
+            /* background-color: var(--title-bg-color); */
+            background-image: var(--title-bg-img);
+            /* background-image: linear-gradient(red, yellow, blue); */
             height: var(--title-bar-h);
             -webkit-app-region: drag;
-            color: var(--title-color);
             overflow-x: hidden;
+            border-bottom: var(--title-border);
+            padding-top: var(--tool-padding);
+            padding-left: 80px;
+            user-select: none;
+            /* padding-right: var(--tool-padding); */
+        }
+
+        button {
+            height: calc(var(--title-bar-h) - var(--tool-padding));
+            border-radius: 5px;
+            /* background: var(--btn-tool-bg); */
+            background-image: var(--btn-tool-img);
+            color: var(--btn-tool-color);
+            outline: none;
+            border: var(--btn-tool-border);
+            margin-right: -4px;
+            padding-top: 2px;
+            /* margin-right: var(--tool-padding); */
+        }
+
+        button:hover {
+            /* background: #f1f1f1; */
+            /* cursor: pointer !important; */
+            background: var(--btn-tool-bg-hover);
+        }
+
+        button:active {
+            background: var(--btn-tool-bg-active);
+        }
+
+        button:disabled{
+            background-image: var(--btn-tool-img-disabled);
+            color: var(--btn-tool-color-disabled);
+        }
+
+        .title {
+            /* -webkit-app-region: drag; */
+            position: fixed;
+            left: 280px;
+            right: 280px;
+            top: 0;
+            /* padding-top: 9px; */
+            height: calc(var(--title-bar-h) + var(--tool-padding));
+            line-height: calc(var(--title-bar-h) + var(--tool-padding));
+            user-select: none;
+            font-size: var(--title-font-size);
+            overflow-x: hidden;
+            color: var(--title-color);
+            display: inline-block;
         }
 
         .main {
@@ -61,40 +105,10 @@
             max-width: 100%;
             width: auto;
             height: auto;
-            padding-top: var(--title-bar-h);
+            padding-top: calc(var(--title-bar-h));
+            user-select: none;
             /* height: 100%;
             width: auto; */
-        }
-
-        .tool {
-            /* border-radius: 5px; */
-            /* background: #eee; */
-            /* padding: 2px; */
-            display: none;
-            /* font-size: 12; */
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .tool a {
-            color: #000;
-        }
-
-        .title {
-            user-select: none;
-            font-size: 13px;
-            overflow-x: hidden;
-            text-align: center;
-        }
-
-        .title-space {
-            position: fixed;
-            top: 0;
-            height: 22px;
-            width: 70px;
-            background: var(--title-bg-color);
         }
 
         .btn-to {
@@ -102,9 +116,9 @@
             position: fixed;
             top: 0;
             height: 100%;
-            color: #fff;
+            color: var(--btn-to-color);
             padding: 0 20px;
-            background: rgba(5, 5, 5, 0.5);
+            background: var(--btn-to-bg);
             /* visibility: hidden; */
             opacity: 0;
         }
@@ -116,8 +130,20 @@
         .btn-txt {
             user-select: none;
             position: relative;
-            top: 50%;
+            top: calc(50% - var(--tool-padding)/2);
             /* transform: translateY( -50% ); */
+        }
+
+        .open-file {
+            position: fixed;
+            top: calc(50% - 30px);
+            width: 100%;
+            text-align: center;
+            display: none;
+        }
+
+        .open-file h2 {
+            color: var(--open-h2-color);
         }
     </style>
 </head>
@@ -127,16 +153,30 @@
         <div class="main" id="div" onmousewheel="return bbimg(this)">
             <img class="img" id="img" ondblclick="initParams()" onload="resize()">
         </div>
+        <div class="open-file" id="open-file">
+            <h2>Kan Kan</h2>
+            <button onclick="openFileWin()">打开图片</button>
+        </div>
         <div style="right: 0;" class="btn-to" onclick="next()">
             <div class="btn-txt">下一张</div>
         </div>
         <div style="left: 0;" class="btn-to" onclick="previous()">
             <div class="btn-txt">上一张</div>
         </div>
-        <div class="title-bar" ondblclick="maxWindow()">
-            <label id="title" class="title"></label>
-            <div class="title-space" style="left: 0;"></div>
-            <div class="title-space" style="right: 0;"></div>
+        <div class="title-bar">
+            <!-- ondblclick="maxWindow()" -->
+            <div id="title" class="title" ondblclick="maxWindow()">
+            </div>
+            <div style="float: left;">
+                <button onclick="previous()"> 上一张 </button>
+                <button onclick="next()"> 下一张 </button>
+            </div>
+            <div style="display: block;float: right;padding-right: 95px;">
+                <button onclick="setWallpaper()" id="btn-wallpaper">设为壁纸</button>
+                <button onclick="copyFile()">拷贝</button>
+                <!-- <button onclick="showMenu()">菜单</button> -->
+                <button onclick="changeDefaultTheme()" id="btn-theme">暗</button>
+            </div>
         </div>
     </div>
 
@@ -145,8 +185,12 @@
     <script language="javascript">
         var remote = require('electron').remote;
         var index = remote.getCurrentWindow().id - 1;
-        var data = remote.getGlobal('data')[index];
+        var data = { imgs: [], current: 0 };
         var max = false;
+
+        function setGlobalData() {
+            data = remote.getGlobal('data')[index];
+        }
 
         function maxWindow() {
             if (!max) {
@@ -158,14 +202,14 @@
             initParams()
         }
 
-        function showOpenFile() {
-            // document.getElementById("open").style.display = 'block'
+        function setCurrentImg() {
+            setImg(data.current)
         }
 
         function setImg(id) {
             //没有输入
-            if (data.imgs.length < 1) {
-                showOpenFile()
+            if (isImgNull()) {
+                showOpenFile(true)
                 return
             }
             //有输入
@@ -181,6 +225,8 @@
             setImgSrc(data.imgs[id])
             // set title
             setTitle(getFileName(data.imgs[id]))
+            //log
+            console.log("set img:", data.imgs[id])
         }
 
         function setImgSrc(src) {
@@ -198,6 +244,9 @@
         }
 
         function next() {
+            if (isImgNull()) {
+                return false
+            }
             data.current += 1
             if (data.current == data.imgs.length) {
                 data.current = 0;
@@ -206,6 +255,9 @@
         }
 
         function previous() {
+            if (isImgNull()) {
+                return false
+            }
             data.current -= 1
             if (data.current < 0) {
                 data.current = data.imgs.length - 1;
@@ -214,7 +266,7 @@
         }
 
         function getCurrentImg() {
-            if (data.imgs.length < 1) {
+            if (isImgNull()) {
                 return ""
             }
             return data.imgs[data.current]
@@ -262,6 +314,28 @@
             }
         }
 
+        const themeDark = false
+        const lightDark = true
+        var defaultTheme = themeDark
+
+        function changeDefaultTheme() {
+            changeTheme(!defaultTheme)
+            defaultTheme = !defaultTheme
+        }
+
+        function changeTheme(isDark) {
+            theme = document.getElementById('theme-css')
+            btnTheme = document.getElementById('btn-theme')
+            if (isDark) {
+                theme.href = 'static/css/dark.css'
+                btnTheme.innerText = '亮'
+            }
+            else {
+                theme.href = 'static/css/light.css'
+                btnTheme.innerText = '暗'
+            }
+        }
+
         function resize() {
             var img = document.getElementById('img');
             initParams()
@@ -279,45 +353,158 @@
             initParams()
         };
 
-        // 绘制图片
-        setImg(data.current);
-        // 监听拖拽、放大
-        startDrag(document.getElementById("img"), document.getElementById("img"))
-    </script>
+        function isImgNull() {
+            return data.imgs.length < 1
+        }
 
+        function showOpenFile(isShow) {
+            console.log('show open file:', isShow)
+            openFile = document.getElementById('open-file')
+            if (isShow) {
+                openFile.style.display = 'inherit'
+            } else {
+                openFile.style.display = 'none'
+            }
+        }
+
+        window.onload = () => {
+            //读取数据
+            setGlobalData()
+            //判断数据是否为空
+            if (isImgNull()) {
+                showOpenFile(true)
+                return false
+            }
+            // 绘制图片
+            setImg(data.current);
+            // 监听拖拽、放大
+            startDrag(document.getElementById("img"), document.getElementById("img"))
+        }
+
+    </script>
+    <script>
+        const { ipcRenderer } = require('electron')
+        const { dialog } = require('electron').remote;
+
+        function openFileWin() {
+            dialog.showOpenDialog({
+                title: "打开文件",
+                defaultPath: "",
+                properties: ['openFile'],
+                filters: [
+                    { name: 'Img', extensions: ['png', 'jpg', 'jpeg'] },
+                ]
+            }).then(result => {
+                if (result.filePaths.length < 1) {
+                    console.log('open win closed')
+                    return false
+                }
+                console.log('open', result.filePaths[0])
+                ipcRenderer.send('openImg', result.filePaths[0])
+            }).catch(err => {
+                alert(err)
+            })
+        }
+
+        ipcRenderer.on('openImg-cb', (event, msg) => {
+            console.log("open", msg)
+            if (msg == 'ok') {
+                setGlobalData()
+                setCurrentImg()
+                showOpenFile(false)
+            }
+        })
+
+        ipcRenderer.on('themeChanged', (event, msg) => {
+            console.log("themeChanged: isDark", msg)
+            changeTheme(msg)
+        })
+
+    </script>
     <script language="javascript">
         const { Menu, MenuItem } = remote
         const { clipboard } = require('electron') //剪切板
         const nativeImage = require('electron').nativeImage
         const exec = require('child_process').exec
 
+        function setWallpaper() {
+            if (isImgNull()) {
+                alert("没有打开任何图片")
+                return false
+            }
+            document.getElementById('btn-wallpaper').disabled = true
+            var imgPath = getCurrentImg()
+            console.log('set wallpaper:', imgPath)
+            workerProcess = exec("osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file \"" + imgPath + "\"'")
+            // 打印日志
+            workerProcess.on('exit', (data) => {
+                console.log('exit: ' + data);
+                if (data == '0') {
+                    alert('设置壁纸成功!')
+                } else {
+                    alert('设置壁纸失败!\n - 请检查图片路径或者访问权限')
+                }
+                document.getElementById('btn-wallpaper').disabled = false
+            })
+            // 打印错误的后台可执行程序输出
+            workerProcess.stderr.on('data', function (data) {
+                console.log('stderr: ' + data);
+            });
+        }
+
+        function copyFileName() {
+            if (isImgNull) {
+                alert("没有打开任何图片")
+                return false
+            }
+            clipboard.writeText(getFileName(getCurrentImg()))
+        }
+
+        function copyFilePath() {
+            if (isImgNull) {
+                alert("没有打开任何图片")
+                return false
+            }
+            clipboard.writeText(getCurrentImg())
+        }
+
+        function copyFile() {
+            if (isImgNull) {
+                alert("没有打开任何图片")
+                return false
+            }
+            const image = nativeImage.createFromPath(getCurrentImg())
+            clipboard.writeImage(image)
+        }
+
         const menu = new Menu()
         menu.append(new MenuItem({
             label: '复制文件名', click() {
-                clipboard.writeText(getFileName(getCurrentImg()))
+                copyFilename()
+            }
+        }))
+        menu.append(new MenuItem({
+            label: '复制路径', click() {
+                copyFilePath()
             }
         }))
         menu.append(new MenuItem({ type: 'separator' }))
         menu.append(new MenuItem({
             label: '拷贝', click() {
-                const image = nativeImage.createFromPath(getCurrentImg())
-                clipboard.writeImage(image)
+                copyFile()
             }
         }))
         menu.append(new MenuItem({ type: 'separator' }))
         menu.append(new MenuItem({
             label: '设为壁纸', click() {
-                img = getCurrentImg()
-                workerProcess = exec("osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file \""+img+"\"'")
-                // 打印错误的后台可执行程序输出
-                workerProcess.stderr.on('data', function (data) {
-                    console.log('stderr: ' + data);
-                });
+                setWallpaper()
             }
         }))
         menu.append(new MenuItem({ type: 'separator' }))
-        menu.append(new MenuItem({ label: '上一张', click() { next() } }))
-        menu.append(new MenuItem({ label: '下一张', click() { previous() } }))
+        menu.append(new MenuItem({ label: '原始大小', click() { initParams() } }))
+        menu.append(new MenuItem({ type: 'separator' }))
+        menu.append(new MenuItem({ label: '上一张', click() { previous() } }))
+        menu.append(new MenuItem({ label: '下一张', click() { next() } }))
         // menu.append(new MenuItem({ type: 'separator' }))
         // menu.append(new MenuItem({ label: '复制', type: 'checkbox', checked: true }))
         menu.on('menu-will-close', (e) => {
@@ -325,10 +512,14 @@
         })
 
         window.addEventListener('contextmenu', (e) => {
-            menuLock = true;
+            showMenu()
             e.preventDefault()
-            menu.popup({ window: remote.getCurrentWindow() })
         }, false)
+
+        function showMenu(){
+            menuLock = true;
+            menu.popup({ window: remote.getCurrentWindow() })
+        }
 
     </script>
 </body>

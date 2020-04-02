@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu, MenuItem } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu, MenuItem, nativeTheme } = require('electron')
 const fs = require('fs');
 
 global.data = []
@@ -9,10 +9,10 @@ function createMenu() {
         {
             label: "KanKan",
             submenu: [
-                { label: "Close All", accelerator: "CmdOrCtrl+Q", click: function () { app.quit() } },
+                { label: "退出", accelerator: "CmdOrCtrl+Q", click: function () { app.quit() } },
                 { type: 'separator' },
                 {
-                    label: "About", click: function () {
+                    label: "关于", click: function () {
                         app.showAboutPanel()
                     }
                 },
@@ -20,17 +20,21 @@ function createMenu() {
         },
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+    //设置dock
+    const dockMenu = Menu.buildFromTemplate([
+        {
+            label: '新窗口',
+            click() { createWindow() }
+        }
+    ])
+    app.dock.setMenu(dockMenu)
 }
 
 function createWindow() {
     // 创建菜单
     createMenu()
     // 创建窗口
-    if (getInputFile() == "") {
-        createOpenWindow()
-    } else {
-        createIndexWindow()
-    }
+    createIndexWindow()
 }
 
 function createOpenWindow() {
@@ -62,15 +66,17 @@ function createIndexWindow() {
     // 创建浏览器窗口
     const win = new BrowserWindow({
         title: getFileName(inputFile),
-        titleBarStyle: "hidden",
+        titleBarStyle: "hiddenInset",
         width: 1150,
-        minWidth: 400,
+        minWidth: 650,
         height: 790,
-        minHeight: 300,
+        minHeight: 450,
         webPreferences: {
             nodeIntegration: true
         }
     })
+
+    // 设置偏移
 
     // 绑定数据
     setGlobalData()
@@ -169,10 +175,16 @@ function isImg(file) {
 }
 
 function setGlobalData() {
-    global.data.push(getImgs(getFileName(inputFile), getPath(inputFile)))
+    global.data.push(getImgs(getInputFile()))
 }
 
-function getImgs(inputFile, folderPath) {
+function resetGlobalData(id, data) {
+    global.data[id] = data
+}
+
+function getImgs(imgFile) {
+    filename = getFileName(imgFile)
+    folderPath = getPath(imgFile)
     var imgsData = {
         current: 0,
         imgs: [],
@@ -192,7 +204,7 @@ function getImgs(inputFile, folderPath) {
                 fileFull = `${folderPath}/${file}`;
                 // console.log(fileFull);
                 imgsData.imgs.push(fileFull);
-                if (inputFile == file) {
+                if (filename == file) {
                     imgsData.current = i
                     // console.log('current',i);
                 }
@@ -203,10 +215,6 @@ function getImgs(inputFile, folderPath) {
     return imgsData
 }
 
-app.openFile = (file) => {
-
-}
-
 ipcMain.on('openImg', (event, file) => {
     fs.open(file, (err) => {
         if (err) {
@@ -214,9 +222,16 @@ ipcMain.on('openImg', (event, file) => {
             event.reply('openImg-cb', 'ERROR\n open ' + file + ' failed')
         } else {
             inputFile = file
-            createIndexWindow()
-            BrowserWindow.fromId(1).close()
+            resetGlobalData(0, getImgs(file))
+            event.reply('openImg-cb', 'ok')
         }
     })
 })
 
+//切换暗-亮模式触发
+nativeTheme.on('updated', () => {
+    isDark = nativeTheme.shouldUseDarkColors
+    BrowserWindow.getAllWindows().forEach((win) => {
+        win.webContents.send('themeChanged', isDark)
+    })
+})

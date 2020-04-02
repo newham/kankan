@@ -1,0 +1,22 @@
+:root {
+    --title-bar-h: 32px;
+    --title-h: 22px;
+    --title-bg-color: #444;
+    --title-bg-img:linear-gradient(#444, #333);
+    --title-color: #eee;
+    --title-border: 1px solid #222;
+    --title-font-size: 13px;
+    --bg-color: #555;
+    --btn-to-bg: rgba(4, 4, 4, 0.5);
+    --btn-to-color: #eee;
+    --btn-tool-bg: #666;
+    --btn-tool-img:linear-gradient(#666, #555);
+    --btn-tool-bg-hover:#777;
+    --btn-tool-bg-active:#555;
+    --btn-tool-img-disabled:linear-gradient(rgb(231, 45, 45), rgb(192, 21, 21));
+    --btn-tool-color-disabled:#fff;
+    --btn-tool-color:#fff;
+    --btn-tool-border:1px solid #444;
+    --tool-padding: 7px;
+    --open-h2-color:#eee;
+}

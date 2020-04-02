@@ -1,6 +1,6 @@
 {
   "name": "kankan",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "a tool to look picture",
   "main": "main.js",
   "scripts": {
@@ -26,14 +26,28 @@
     "fileAssociations": [
       {
         "ext": ["jpg","jpeg"],
-        "description": "jpg",
+        "description": "Jpg Image",
         "icon": "./icon.icns",
         "role": "Viewer",
         "isPackage": false
       },
       {
         "ext": "png",
-        "description": "png",
+        "description": "Png Image",
+        "icon": "./icon.icns",
+        "role": "Viewer",
+        "isPackage": false
+      },
+      {
+        "ext": "gif",
+        "description": "Dynamic picture",
+        "icon": "./icon.icns",
+        "role": "Viewer",
+        "isPackage": false
+      },
+      {
+        "ext": ["ico","icon"],
+        "description": "Icon image",
         "icon": "./icon.icns",
         "role": "Viewer",
         "isPackage": false
