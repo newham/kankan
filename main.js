@@ -1,16 +1,21 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu, MenuItem } = require('electron')
 const fs = require('fs');
+
 global.data = []
 let inputFile = ""
 
 function createMenu() {
-    const template = [
+    var template = [
         {
             label: "KanKan",
             submenu: [
-                { label: "Quit", accelerator: "CmdOrCtrl+Q", click: function () { app.quit(); } },
+                { label: "Close All", accelerator: "CmdOrCtrl+Q", click: function () { app.quit() } },
                 { type: 'separator' },
-                { label: "About", click: function () { } },
+                {
+                    label: "About", click: function () {
+                        app.showAboutPanel()
+                    }
+                },
             ]
         },
     ];
@@ -56,7 +61,7 @@ function createOpenWindow() {
 function createIndexWindow() {
     // 创建浏览器窗口
     const win = new BrowserWindow({
-        title: "kankan-win-" + new Date().getTime(),
+        title: getFileName(inputFile),
         titleBarStyle: "hidden",
         width: 1150,
         minWidth: 400,
@@ -155,6 +160,8 @@ function isImg(file) {
         case 'jpg':
         case 'jpeg':
         case 'png':
+        case 'gif':
+        case 'ico':
             return true
         default:
             return false
@@ -212,3 +219,4 @@ ipcMain.on('openImg', (event, file) => {
         }
     })
 })
+
