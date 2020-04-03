@@ -1,8 +1,10 @@
 const { app, BrowserWindow, ipcMain, Menu, MenuItem, nativeTheme, dialog, screen } = require('electron')
 const fs = require('fs');
-
+//存放所有窗口数据
 global.data = []
+//保存打开文件
 let inputFile = ""
+//窗口计数,用于多窗口偏移
 let winCount = 0
 
 function createMenu() {
