@@ -16,8 +16,10 @@ function setWallpaper() {
     workerProcess.on('exit', (data) => {
         console.log('exit: ' + data);
         if (data == '0') {
+            console.log('set wallpapger:',imgPath)
             alert('设置壁纸成功!')
         } else {
+            console.log('set wallpapger failed',)
             alert('设置壁纸失败!\n - 请检查图片路径或者访问权限')
         }
         document.getElementById('btn-wallpaper').disabled = false
