@@ -7,10 +7,14 @@ function openFileWin() {
 ipcRenderer.on('openImg-cb', (event, msg) => {
     console.log("open", msg)
     if (msg == 'ok') {
-        setGlobalData()
-        setCurrentImg()
+        //set open file null
         showTitleBar(true)
         showOpenFile(false)
+        //set img
+        setGlobalData()
+        setCurrentImg()
+        // 监听拖拽、放大
+        startDrag(document.getElementById("img"), document.getElementById("img"))
     }
 })
 

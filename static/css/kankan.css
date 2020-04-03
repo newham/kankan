@@ -43,7 +43,6 @@ button {
     border: var(--btn-border);
     /* margin-right: -4px; */
     /* padding-top: 2px; */
-    user-select: none;
     /* margin-right: var(--tool-padding); */
 }
 
@@ -102,6 +101,7 @@ button:disabled {
     width: auto;
     height: auto;
     padding-top: calc(var(--title-bar-h));
+    user-select: none;
 }
 
 .btn-to {
@@ -114,6 +114,7 @@ button:disabled {
     background: var(--btn-to-bg);
     /* visibility: hidden; */
     opacity: 0;
+    user-select: none;
 }
 
 .btn-to:hover {
@@ -133,6 +134,7 @@ button:disabled {
     width: 100%;
     text-align: center;
     display: none;
+    user-select: none;
 }
 
 .open-file h2 {

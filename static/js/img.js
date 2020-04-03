@@ -82,6 +82,7 @@ function isDrag() {
 
 //拖拽的实现
 var startDrag = function (bar, target, callback) {
+    console.log("start to drag")
 
     if (getCss(target, "left") !== "auto") {
         params.left = getCss(target, "left");
