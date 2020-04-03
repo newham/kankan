@@ -1,8 +1,6 @@
 
 var max = false;
 
-
-
 function maxWindow() {
     if (!max) {
         remote.getCurrentWindow().maximize();
@@ -18,10 +16,6 @@ function setImgSrc(src) {
     img.style.visibility = 'hidden'
     img.src = src
 }
-
-// function getImgHtml(src) {
-//     return '<img class="img" id="img" ondblclick="initParams()" onload="resize()" src="' + src + '" style="visibility:hidden"/>'
-// }
 
 function setTitle(title) {
     document.getElementById("title").innerText = title
@@ -78,7 +72,7 @@ function esc() {
 }
 
 // 监听键盘事件
-document.onkeydown = function (event) {
+document.onkeydown = (event) => {
     event = event || window.event;/*||为或语句，当IE不能识别event时候，就执行window.event 赋值*/
     // console.log(event.keyCode);
     switch (event.keyCode) {/*keyCode:字母和数字键的键码值*/
@@ -97,7 +91,6 @@ document.onkeydown = function (event) {
             break;
     }
 }
-
 
 function setThemeBtn(isDark) {
     btnTheme = document.getElementById('btn-theme')
@@ -118,19 +111,13 @@ function changeTheme() {
 function resize() {
     var img = document.getElementById('img');
     initParams()
-    // var size =remote.getCurrentWindow().getSize()
-    // if(img.offsetHeight<size[1]){
-    //     remote.getCurrentWindow().setSize(size[0],img.offsetHeight)
-    // }
-    // if(img.offsetHeight<size[0]){
-    //     remote.getCurrentWindow().setSize(img.offsetWidth,size[1])
-    // }
     img.style.visibility = "visible"
 }
+
 //on window resize
-window.onresize = function () {
+window.onresize = () => {
     initParams()
-};
+}
 
 function isImgNull() {
     return data.imgs.length < 1

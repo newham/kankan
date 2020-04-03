@@ -68,8 +68,8 @@ button:disabled {
     display: none;
     /* -webkit-app-region: drag; */
     position: fixed;
-    left: 280px;
-    right: 280px;
+    left: 150px;
+    right: 120px;
     top: 0;
     /* padding-top: 9px; */
     height: calc(var(--title-bar-h) + var(--tool-padding));
@@ -102,9 +102,6 @@ button:disabled {
     width: auto;
     height: auto;
     padding-top: calc(var(--title-bar-h));
-    user-select: none;
-    /* height: 100%;
-    width: auto; */
 }
 
 .btn-to {
