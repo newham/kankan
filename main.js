@@ -245,7 +245,7 @@ function showOpenFileWin(f) {
         defaultPath: "",
         properties: ['openFile'],
         filters: [
-            { name: 'Img', extensions: ['png', 'jpg', 'jpeg'] },
+            { name: 'Img', extensions: ['png', 'jpg', 'jpeg', 'ico'] },
         ]
     }).then(result => {
         if (result.filePaths.length < 1) {
