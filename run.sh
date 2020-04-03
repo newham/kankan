@@ -1,1 +1,1 @@
-npm start ./0.jpg
+npm start ./test_img/0.jpg

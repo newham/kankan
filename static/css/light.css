@@ -2,22 +2,24 @@
 :root {
     --title-bar-h: 32px;
     --title-h: 22px;
-    --title-bg-color:#eee;
-    --title-bg-img:linear-gradient(#E4E5E3, #CDCCCD);
+    --title-bg-color:#E6E6E6;
+    --title-bg-img:linear-gradient(#E6E6E6, #E6E6E6);
     --title-color: #333;
-    --title-border: 1px solid #A7A7A7;
+    --title-border: 1px solid #C7C7C7;
     --title-font-size: 13px;
     --bg-color: #fff;
     --btn-to-bg: rgba(225, 225, 225, 0.5);
     --btn-to-color: #444;
-    --btn-tool-bg: #FAFAFB;
-    --btn-tool-img:linear-gradient(#FBFBFB, #F4F4F4);
-    --btn-tool-bg-hover: #f1f1f1;
-    --btn-tool-bg-active: #ccc;
-    --btn-tool-img-disabled:linear-gradient(rgb(240, 62, 62), rgb(197, 54, 54));
-    --btn-tool-color-disabled:#fff;
-    --btn-tool-color: #000;
-    --btn-tool-border: 1px solid #CECECE;
+    --btn-bg: #FDFDFD;
+    --btn-img:linear-gradient( #FDFDFD,#FDFDFD);
+    --btn-bg-hover: #f1f1f1;
+    --btn-img-hover: linear-gradient( #F1F1F1,#F1F1F1);
+    --btn-bg-active: #DDD;
+    --btn-img-disabled:linear-gradient(rgb(240, 62, 62), rgb(197, 54, 54));
+    --btn-bg-disabled:rgb(240, 62, 62);
+    --btn-color-disabled:#fff;
+    --btn-color: #000;
+    --btn-border: 1px solid #DADADA;
     --tool-padding: 6px;
     --open-h2-color:#2D75CB;
 }

@@ -215,6 +215,7 @@ function getImgs(imgFile) {
     return imgsData
 }
 
+//打开图片后操作
 ipcMain.on('openImg', (event) => {
     showOpenFileWin((ok) => {
         if (ok) {
