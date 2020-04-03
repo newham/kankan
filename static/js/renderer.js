@@ -1,7 +1,7 @@
 const { ipcRenderer } = require('electron')
 
 function openFileWin() {
-    ipcRenderer.send('openImg', '')
+    ipcRenderer.send('openImg', index)
 }
 
 ipcRenderer.on('openImg-cb', (event, msg) => {

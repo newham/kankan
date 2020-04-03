@@ -41,7 +41,11 @@ function createMenu() {
     const dockMenu = Menu.buildFromTemplate([
         {
             label: '新窗口',
-            click() { createWindow() }
+            click() {
+                //初始化空窗口
+                inputFile = ""
+                createWindow()
+            }
         }
     ])
     app.dock.setMenu(dockMenu)
@@ -64,7 +68,7 @@ function createIndexWindow() {
     // console.log(dW, dH, w, h, x, y, winCount, X, Y)
     // 创建浏览器窗口
     const win = new BrowserWindow({
-        title: getFileName(inputFile),
+        title: getFileName(getInputFile()),
         titleBarStyle: "hiddenInset",
         x: parseInt(x + 10 * winCount),
         y: parseInt(y + 10 * winCount), //设置偏移
@@ -133,6 +137,7 @@ app.on("open-file", (event, file) => {
 function getInputFile() {
     if (process.argv.length >= 3 && inputFile == "" && process.argv[2] != '-t') {
         inputFile = process.argv[2]//供测试用
+        process.argv = [] //清除测试用数据
     }
     return inputFile
 }
@@ -181,7 +186,7 @@ function setGlobalData() {
 }
 
 function resetGlobalData(id) {
-    global.data[id] = getImgs(inputFile)
+    global.data[id] = getImgs(getInputFile())
 }
 
 function getImgs(imgFile) {
@@ -220,10 +225,11 @@ function getImgs(imgFile) {
 }
 
 //打开图片后操作
-ipcMain.on('openImg', (event) => {
+ipcMain.on('openImg', (event, id) => {
+    console.log('call back from win:', id)
     showOpenFileWin((ok) => {
         if (ok) {
-            resetGlobalData(0)
+            resetGlobalData(id)
             event.reply('openImg-cb', 'ok')
         } else {
             event.reply('openImg-cb', 'failed')
