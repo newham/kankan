@@ -19,6 +19,7 @@ function setImgSrc(src) {
 
 function setTitle(title) {
     document.getElementById("title").innerText = title
+    document.getElementById("head-title").innerText = title
 }
 
 function next() {

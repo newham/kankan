@@ -31,16 +31,14 @@ function setImg(id) {
     if (id < 0 || id >= data.imgs.length) {
         id = 0
     }
-    // // 删除之前的img
-    // if (div.firstChild) {
-    //     div.removeChild(div.firstChild)
-    // }
+    //获取指定id的img
+    imgFile = data.imgs[id]
     // 重绘新img
-    setImgSrc(data.imgs[id])
+    setImgSrc(imgFile)
     // set title
-    setTitle(getFileName(data.imgs[id]))
+    setTitle(getFileName(imgFile))
     //log
-    console.log("set img:", data.imgs[id])
+    console.log("set img:", imgFile)
 }
 
 // ******加载本js时执行******
