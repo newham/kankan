@@ -1,7 +1,7 @@
 {
   "name": "kankan",
   "version": "0.2.0",
-  "description": "a tool to look picture",
+  "description": "A tool for browsing pictures",
   "main": "main.js",
   "scripts": {
     "test": "electron . -t",
