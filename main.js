@@ -190,7 +190,9 @@ function getImgs(imgFile) {
     var imgsData = {
         current: 0,
         imgs: [],
+        isDark: nativeTheme.shouldUseDarkColors,//设置主题模式
     }
+    console.log("isDark:", imgsData.isDark)
     if (folderPath == "") {
         console.log('输入文件为空');
         return imgsData

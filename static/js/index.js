@@ -1,11 +1,7 @@
-var remote = require('electron').remote;
-var index = remote.getCurrentWindow().id - 1;
-var data = { imgs: [], current: 0 };
+
 var max = false;
 
-function setGlobalData() {
-    data = remote.getGlobal('data')[index];
-}
+
 
 function maxWindow() {
     if (!max) {
@@ -15,33 +11,6 @@ function maxWindow() {
     }
     max = !max;
     initParams()
-}
-
-function setCurrentImg() {
-    setImg(data.current)
-}
-
-function setImg(id) {
-    //没有输入
-    if (isImgNull()) {
-        showOpenFile(true)
-        return
-    }
-    //有输入
-    initParams();
-    if (id < 0 || id >= data.imgs.length) {
-        id = 0
-    }
-    // // 删除之前的img
-    // if (div.firstChild) {
-    //     div.removeChild(div.firstChild)
-    // }
-    // 重绘新img
-    setImgSrc(data.imgs[id])
-    // set title
-    setTitle(getFileName(data.imgs[id]))
-    //log
-    console.log("set img:", data.imgs[id])
 }
 
 function setImgSrc(src) {
@@ -129,26 +98,21 @@ document.onkeydown = function (event) {
     }
 }
 
-const themeDark = false
-const lightDark = true
-var defaultTheme = themeDark
 
-function changeDefaultTheme() {
-    changeTheme(!defaultTheme)
-    defaultTheme = !defaultTheme
-}
-
-function changeTheme(isDark) {
-    theme = document.getElementById('theme-css')
+function setThemeBtn(isDark) {
     btnTheme = document.getElementById('btn-theme')
     if (isDark) {
-        theme.href = 'static/css/dark.css'
-        btnTheme.innerText = '亮'
+        btnTheme.innerText = '☀'
+    } else {
+        btnTheme.innerText = '◐'
     }
-    else {
-        theme.href = 'static/css/light.css'
-        btnTheme.innerText = '暗'
-    }
+}
+
+function changeTheme() {
+    data.isDark = !data.isDark
+    console.log('changeTheme', data.isDark)
+    setTheme(data.isDark)
+    setThemeBtn(data.isDark)
 }
 
 function resize() {
@@ -172,23 +136,34 @@ function isImgNull() {
     return data.imgs.length < 1
 }
 
-function showOpenFile(isShow) {
-    console.log('show open file:', isShow)
-    openFile = document.getElementById('open-file')
+function showItem(item, isShow) {
+    console.log('show', item, isShow)
+    itemObj = document.getElementById(item)
     if (isShow) {
-        openFile.style.display = 'inherit'
+        itemObj.style.display = 'inherit'
     } else {
-        openFile.style.display = 'none'
+        itemObj.style.display = 'none'
     }
 }
 
+function showTitleBar(isShow) {
+    showItem('title-bar', isShow)
+}
+
+function showOpenFile(isShow) {
+    showItem('open-file', isShow)
+}
+
 window.onload = () => {
-    //读取数据
-    setGlobalData()
+    //设置theme btn
+    setThemeBtn(data.isDark)
     //判断数据是否为空
     if (isImgNull()) {
+        showTitleBar(false)
         showOpenFile(true)
         return false
+    } else {
+        showTitleBar(true)
     }
     // 绘制图片
     setImg(data.current);

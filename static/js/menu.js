@@ -16,10 +16,10 @@ function setWallpaper() {
     workerProcess.on('exit', (data) => {
         console.log('exit: ' + data);
         if (data == '0') {
-            console.log('set wallpapger:',imgPath)
+            console.log('set wallpapger:', imgPath)
             alert('设置壁纸成功!')
         } else {
-            console.log('set wallpapger failed',)
+            console.log('set wallpapger failed')
             alert('设置壁纸失败!\n - 请检查图片路径或者访问权限')
         }
         document.getElementById('btn-wallpaper').disabled = false
@@ -31,34 +31,38 @@ function setWallpaper() {
 }
 
 function copyFileName() {
-    if (isImgNull) {
+    if (isImgNull()) {
         alert("没有打开任何图片")
         return false
     }
     clipboard.writeText(getFileName(getCurrentImg()))
+    console.log('copy file name:', getFileName(getCurrentImg()))
 }
 
 function copyFilePath() {
-    if (isImgNull) {
+    if (isImgNull()) {
         alert("没有打开任何图片")
         return false
     }
     clipboard.writeText(getCurrentImg())
+    console.log('copy file path:', getCurrentImg())
 }
 
 function copyFile() {
-    if (isImgNull) {
+    if (isImgNull()) {
         alert("没有打开任何图片")
         return false
     }
     const image = nativeImage.createFromPath(getCurrentImg())
     clipboard.writeImage(image)
+    console.log('copy file:', getCurrentImg())
+    alert('已复制到剪切板')
 }
 
 const menu = new Menu()
 menu.append(new MenuItem({
     label: '复制文件名', click() {
-        copyFilename()
+        copyFileName()
     }
 }))
 menu.append(new MenuItem({

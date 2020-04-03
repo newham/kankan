@@ -9,6 +9,8 @@
     <!-- load css -->
     <link rel="stylesheet" type="text/css" href="static/css/light.css" id="theme-css" />
     <link rel="stylesheet" type="text/css" href="static/css/kankan.css" />
+    <!-- load js -->
+    <script src="static/js/data.js"></script>
 </head>
 
 <body>
@@ -26,19 +28,19 @@
         <div style="left: 0;" class="btn-to" onclick="previous()">
             <div class="btn-txt">上一张</div>
         </div>
-        <div class="title-bar">
+        <div class="title-bar" id="title-bar">
             <!-- ondblclick="maxWindow()" -->
             <div id="title" class="title" ondblclick="maxWindow()">
             </div>
             <div style="float: left;">
-                <button onclick="previous()"> 上一张 </button>
-                <button onclick="next()"> 下一张 </button>
+                <button onclick="previous()"> ◀ </button>
+                <button onclick="next()"> ▶ </button>
             </div>
-            <div style="display: block;float: right;padding-right: 95px;">
-                <button onclick="setWallpaper()" id="btn-wallpaper">设为壁纸</button>
-                <button onclick="copyFile()">拷贝</button>
+            <div style="display: block;float: right;padding-right: 90px;">
+                <button onclick="setWallpaper()" id="btn-wallpaper">♡</button>
+                <button onclick="copyFile()">✂</button>
                 <!-- <button onclick="showMenu()">菜单</button> -->
-                <button onclick="changeDefaultTheme()" id="btn-theme">暗</button>
+                <button onclick="changeTheme()" id="btn-theme">暗</button>
             </div>
         </div>
     </div>

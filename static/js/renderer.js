@@ -9,11 +9,12 @@ ipcRenderer.on('openImg-cb', (event, msg) => {
     if (msg == 'ok') {
         setGlobalData()
         setCurrentImg()
+        showTitleBar(true)
         showOpenFile(false)
     }
 })
 
 ipcRenderer.on('themeChanged', (event, msg) => {
     console.log("themeChanged: isDark", msg)
-    changeTheme(msg)
+    setTheme(msg)
 })

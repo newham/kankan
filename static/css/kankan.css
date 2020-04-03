@@ -32,14 +32,18 @@ a {
 
 button {
     height: calc(var(--title-bar-h) - var(--tool-padding));
+    line-height: calc(var(--title-bar-h) - var(--tool-padding)*2);
+    padding: 0 8px;
+    margin: 0;
     border-radius: 5px;
     background: var(--btn-bg);
     /* background-image: var(--btn-img); */
     color: var(--btn-color);
     outline: none;
     border: var(--btn-border);
-    margin-right: -4px;
-    padding-top: 2px;
+    /* margin-right: -4px; */
+    /* padding-top: 2px; */
+    user-select: none;
     /* margin-right: var(--tool-padding); */
 }
 
@@ -61,6 +65,7 @@ button:disabled {
 }
 
 .title {
+    display: none;
     /* -webkit-app-region: drag; */
     position: fixed;
     left: 280px;
@@ -127,7 +132,7 @@ button:disabled {
 
 .open-file {
     position: fixed;
-    top: calc(50% - 30px);
+    top: calc(50% - 50px);
     width: 100%;
     text-align: center;
     display: none;
@@ -135,4 +140,5 @@ button:disabled {
 
 .open-file h2 {
     color: var(--open-h2-color);
+    user-select: none;
 }
