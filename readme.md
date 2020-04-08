@@ -32,7 +32,7 @@ Kan Kan是一个帮助你快速看图的Mac OS软件，使用体验类似于win1
 0.2.3|2020.04.03|修复bug，功能基本完善 |[0.2.3.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.3/kankan-0.2.3.dmg.zip)
 
 ## 国内下载  
-链接: [百度网盘](https://pan.baidu.com/s/1KMK9E7Uj4S5f6FUySmJOKA)  密码:·`toi6`
+链接: [百度网盘](https://pan.baidu.com/s/1a9keXBqPy3afj9o5ykB6jA)  密码:·`59t9`
 
 ## 鸣谢  
 [Electron](https://www.electronjs.org)，本软件基于该项目开发
