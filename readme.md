@@ -9,7 +9,7 @@ Kan Kan是一个帮助你快速看图的Mac OS软件，使用体验类似于win1
 <img src="cap_1.png">
 “暗黑”模式  
 <img src="cap_2.png">
-  
+
 ## 优势：  
 1.完全遵从Mac OS原生的设计语言，UI简洁大方  
 2.原生支持“暗黑模式”，可自动切换，也可手动切换“亮”-“暗”两种主题  
@@ -28,13 +28,16 @@ Kan Kan是一个帮助你快速看图的Mac OS软件，使用体验类似于win1
 -----|----------|------------------|----
 0.2.0|2020.04.03|第一版，有少量bug    |-
 0.2.3|2020.04.03|修复bug，功能基本完善 |[0.2.3.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.3/kankan-0.2.3.dmg.zip)
-  
+
+## 国内下载
+链接: [百度网盘](https://pan.baidu.com/s/1KMK9E7Uj4S5f6FUySmJOKA)  密码:·`toi6`
+
 ## 鸣谢：  
 [Electron](https://www.electronjs.org)，本软件基于该项目开发
-  
+
 ## 版权所有：  
 Liu Han
-  
+
 ## 反馈：   
 newham.cn@gmail.com  
 
