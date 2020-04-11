@@ -1,6 +1,6 @@
 {
   "name": "kankan",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A tool for browsing pictures",
   "main": "main.js",
   "scripts": {

@@ -22,11 +22,11 @@
             <h2>Kan Kan</h2>
             <button onclick="openFileWin()">打开图片</button>
         </div>
-        <div style="right: 0;" class="btn-to" onclick="next()">
-            <div class="btn-txt">下一张</div>
+        <div style="right: 0;" class="btn-to" onclick="next()" id='btn-to-r'>
+            <div class="btn-txt">→</div>
         </div>
-        <div style="left: 0;" class="btn-to" onclick="previous()">
-            <div class="btn-txt">上一张</div>
+        <div style="left: 0;" class="btn-to" onclick="previous()" id='btn-to-l'>
+            <div class="btn-txt">←</div>
         </div>
         <div class="title-bar" id="title-bar">
             <!-- ondblclick="maxWindow()" -->
@@ -40,7 +40,7 @@
                 <button onclick="setWallpaper()" id="btn-wallpaper">♡</button>
                 <button onclick="copyFile()">✂</button>
                 <!-- <button onclick="showMenu()">菜单</button> -->
-                <button onclick="changeTheme()" id="btn-theme">暗</button>
+                <button onclick="changeTheme()" id="btn-theme">◐</button>
             </div>
         </div>
     </div>

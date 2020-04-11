@@ -136,6 +136,8 @@ function showItem(item, isShow) {
 
 function showTitleBar(isShow) {
     showItem('title-bar', isShow)
+    showItem('btn-to-r',isShow)
+    showItem('btn-to-l',isShow)
 }
 
 function showOpenFile(isShow) {

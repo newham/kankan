@@ -107,10 +107,10 @@ button:disabled {
 .btn-to {
     cursor: pointer;
     position: fixed;
-    top: 0;
-    height: 100%;
+    top: var(--title-bar-h);
+    height: calc(100% - var(--title-bar-h));
     color: var(--btn-to-color);
-    padding: 0 20px;
+    padding: 0 30px;
     background: var(--btn-to-bg);
     /* visibility: hidden; */
     opacity: 0;

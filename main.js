@@ -72,6 +72,8 @@ function createIndexWindow() {
         titleBarStyle: "hiddenInset",
         x: parseInt(x + 10 * winCount),
         y: parseInt(y + 10 * winCount), //设置偏移
+        // transparent:true, //透明度
+        // opacity:0.99,
         width: w,
         minWidth: 650,
         height: h,
