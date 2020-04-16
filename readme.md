@@ -29,10 +29,11 @@ Kan Kan是一个帮助你快速看图的Mac OS软件，使用体验类似于win1
 版本  |时间       |内容              |下载
 -----|----------|------------------|----
 0.2.0|2020.04.03|第一版，有少量bug    |-
-0.2.3|2020.04.03|修复bug，功能基本完善 |[0.2.3.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.3/kankan-0.2.3.dmg.zip)
+0.2.3|2020.04.03|修复bug，功能基本完善 |-
+0.2.4|2020.04.16|新增功能：<br>1.增加放大倍数显示。<br>2.增加分辨率显示。<br>3.增加新原始大小功能。<br>4.修改部分菜单、按钮位置|[0.2.4.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.4/kankan-0.2.4.dmg.zip)
 
 ## 国内下载  
-链接: [百度网盘](https://pan.baidu.com/s/1a9keXBqPy3afj9o5ykB6jA)  密码:·`59t9`
+链接: [百度网盘](https://pan.baidu.com/s/1FvkOtgH3_jpC7EOhjQymIQ)  密码: `n0gv`
 
 ## 鸣谢  
 [Electron](https://www.electronjs.org)，本软件基于该项目开发

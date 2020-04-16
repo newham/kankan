@@ -1,3 +1,8 @@
+:root{
+    --foot-bar-h:22px;
+    --foot-bar-padding:3px;
+}
+
 body,
 html {
     height: 100%;
@@ -68,7 +73,7 @@ button:disabled {
     /* -webkit-app-region: drag; */
     position: fixed;
     left: 150px;
-    right: 120px;
+    right: 170px;
     top: 0;
     /* padding-top: 9px; */
     height: calc(var(--title-bar-h) + var(--tool-padding));
@@ -140,4 +145,33 @@ button:disabled {
 .open-file h2 {
     color: var(--open-h2-color);
     user-select: none;
+}
+
+.foot-bar{
+    position: fixed;
+    /* right: 10px; */
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    /* background: var(--title-bg-color); */
+    height: var(--foot-bar-h);
+    padding-bottom: var(--foot-bar-padding);
+    /* border-top: var(--title-border); */
+    /* background: #111; */
+    /* border-radius: 5px; */
+    /* background: var(--bg-color); */
+    /* padding: 10px; */
+}
+
+.foot-bar label{
+    padding:5px;
+    border-radius: 5px;
+    margin: 0px;
+    font-size:var(--title-font-size) ;
+    color: var(--btn-to-color);
+    background: var(--btn-to-bg);
+    /* text-shadow:#000 1px 0 0,#000 0 1px 0,#000 -1px 0 0,#000 0 -1px 0; */
+    /* background: #222;
+    padding: 5px;
+    border-radius: 5px; */
 }

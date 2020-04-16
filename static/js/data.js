@@ -27,7 +27,7 @@ function setImg(id) {
         return
     }
     //有输入
-    initParams();
+    initParams(1);
     if (id < 0 || id >= data.imgs.length) {
         id = 0
     }

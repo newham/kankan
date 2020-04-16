@@ -16,7 +16,7 @@
 <body>
     <div class="container">
         <div class="main" id="div" onmousewheel="return bbimg(this)">
-            <img class="img" id="img" ondblclick="initParams()" onload="resize()">
+            <img class="img" id="img" ondblclick="resetSize()" onload="resize()">
         </div>
         <div class="open-file" id="open-file">
             <h2>Kan Kan</h2>
@@ -37,11 +37,16 @@
                 <button onclick="next()"> ▶ </button>
             </div>
             <div style="display: block;float: right;padding-right: 90px;">
-                <button onclick="setWallpaper()" id="btn-wallpaper">♡</button>
+                <button onclick="realSize()">↗</button>
+                <button onclick="initParams(1)">↙</button>
                 <button onclick="copyFile()">✂</button>
+                <button onclick="setWallpaper()" id="btn-wallpaper">♡</button>
                 <!-- <button onclick="showMenu()">菜单</button> -->
                 <button onclick="changeTheme()" id="btn-theme">◐</button>
             </div>
+        </div>
+        <div class="foot-bar" id="foot-bar">
+            <label id="zoom-per">100%</label>
         </div>
     </div>
     <!-- load js -->

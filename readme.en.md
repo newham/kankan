@@ -29,7 +29,8 @@ More content will be added according to user feedback in the future...
 version  |time           |content                                                      |download
 ------------|----------------|------------------------------------------------------|----
 0.2.0      |2020.04.03|first version，A small amount bugs    |-
-0.2.3      |2020.04.03|Fix bugs, basically complete functions |[0.2.3.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.3/kankan-0.2.3.dmg.zip)
+0.2.3      |2020.04.03|Fix bugs, basically complete functions |-
+0.2.4|2020.04.16|New functions: <br> 1. Add the magnification display. <br>2. Add the resolution display. <br>3. Add new original size function. <br>4. Modify some menus and button positions|[0.2.4.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.4/kankan-0.2.4.dmg.zip)
 
 ## THANKS TO  
 [Electron](https://www.electronjs.org)，This software is developed based on this project

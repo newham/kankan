@@ -1,6 +1,6 @@
 var menuLock = false;
 
-function initParams() {
+function initParams(zoomVal) {
     var img = document.getElementById("img")
     x = 0
     y = 0
@@ -10,7 +10,7 @@ function initParams() {
     }
 
     params = {
-        zoomVal: 1,
+        zoomVal: zoomVal,
         left: x,
         top: y,
         currentX: 0,
@@ -23,8 +23,22 @@ function initParams() {
         img.style.top = parseInt(params.top) + "px";
         img.style.transform = "scale(" + params.zoomVal + ")";
     }
+
+    setZoomPer(params.zoomVal)
 }
 
+function realSize() {
+    var img = document.getElementById("img")
+    initParams(img.naturalWidth / img.offsetWidth)
+}
+
+function resetSize() {
+    if (params.zoomVal == 1) {
+        realSize()
+    } else {
+        initParams(1)
+    }
+}
 
 //图片缩放
 function bbimg(o) {
@@ -33,6 +47,12 @@ function bbimg(o) {
 
     params.zoomVal += event.wheelDelta / 1200;
     // alert(parseInt(event.clientX*params.zoomVal));
+
+    // 设置放大的最大倍数
+    var zoomMax = 20
+    if (params.zoomVal >= zoomMax) {
+        params.zoomVal = zoomMax
+    }
 
     // console.log(params.left, ',', params.top, ',', event.pageX, ',', event.pageY,',',o.offsetHeight*params.zoomVal)
 
@@ -47,8 +67,11 @@ function bbimg(o) {
     } else {
         params.zoomVal = 0.2;
         o.style.transform = "scale(" + params.zoomVal + ")";
-        return false;
+        // return false;
     }
+
+    // 显示放大倍数
+    setZoomPer(params.zoomVal)
     //移动
     // if (X != 0 || Y != 0) {
     //     params.left = params.left - (event.pageX - X)/params.zoomVal
@@ -59,6 +82,26 @@ function bbimg(o) {
     // X = event.pageX
     // Y = event.pageY
 }
+
+function getZoomRate() {
+    img = document.getElementById('img')
+    rate = img.offsetWidth / img.naturalWidth
+    return rate
+}
+
+function setZoomPer(zoomVal) {
+    rate = getZoomRate()
+    // console.log(img.naturalWidth,img.naturalHeight)
+    document.getElementById('zoom-per').innerHTML = Math.round(100 * zoomVal * rate) + '%'
+    //
+    setSize()
+}
+
+function setSize() {
+    img = document.getElementById('img')
+    document.getElementById('zoom-per').innerHTML += ' ' + img.naturalWidth + "x" + img.naturalHeight
+}
+
 //获取相关CSS属性
 var getCss = function (o, key) {
     return o.currentStyle ? o.currentStyle[key] : document.defaultView.getComputedStyle(o, false)[key];

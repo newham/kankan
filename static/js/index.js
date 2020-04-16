@@ -8,7 +8,7 @@ function maxWindow() {
         remote.getCurrentWindow().unmaximize();
     }
     max = !max;
-    initParams()
+    initParams(1)
 }
 
 function setImgSrc(src) {
@@ -111,13 +111,13 @@ function changeTheme() {
 
 function resize() {
     var img = document.getElementById('img');
-    initParams()
+    initParams(1)
     img.style.visibility = "visible"
 }
 
 //on window resize
 window.onresize = () => {
-    initParams()
+    initParams(1)
 }
 
 function isImgNull() {
@@ -138,6 +138,8 @@ function showTitleBar(isShow) {
     showItem('title-bar', isShow)
     showItem('btn-to-r',isShow)
     showItem('btn-to-l',isShow)
+    //tool bar
+    showItem('foot-bar',isShow)
 }
 
 function showOpenFile(isShow) {

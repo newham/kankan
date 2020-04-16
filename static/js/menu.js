@@ -70,20 +70,20 @@ menu.append(new MenuItem({
         copyFilePath()
     }
 }))
-menu.append(new MenuItem({ type: 'separator' }))
 menu.append(new MenuItem({
     label: '拷贝', click() {
         copyFile()
     }
 }))
 menu.append(new MenuItem({ type: 'separator' }))
+menu.append(new MenuItem({ label: '原始大小', click() { realSize() } }))
+menu.append(new MenuItem({ label: '适合页面', click() { initParams(1) } }))
+menu.append(new MenuItem({ type: 'separator' }))
 menu.append(new MenuItem({
     label: '设为壁纸', click() {
         setWallpaper()
     }
 }))
-menu.append(new MenuItem({ type: 'separator' }))
-menu.append(new MenuItem({ label: '原始大小', click() { initParams() } }))
 menu.append(new MenuItem({ type: 'separator' }))
 menu.append(new MenuItem({ label: '上一张', click() { previous() } }))
 menu.append(new MenuItem({ label: '下一张', click() { next() } }))
