@@ -8,9 +8,9 @@ Kankan is a Mac OS software to help you quickly look pictures. The experience is
 
 ## SCREENSHOT  
 Day Mode  
-<img src="cap_1.png">
+<img src="cap_3.png">
 Dark Mode  
-<img src="cap_2.png">
+<img src="cap_4.png">
 
 ## WHAT WE HAVE  
 1.Fully comply with the Mac OS native design language, and the UI is simple and generous  
@@ -25,12 +25,31 @@ Dark Mode
 
 More content will be added according to user feedback in the future...  
 
+## SUPPORTED IMAGE FORMATS
+Suffix|Support
+---|---
+.jpg|√
+.jpeg|√
+.png|√
+.bmp|√
+.gif|√
+.ico|√
+
+## SHORTCUTS
+Key|Function
+---|---
+↓,→|Next
+↑,←|Previous
+Esc|Exit app
+Double-click|Original size ↔ Fit to window
+
 ## UPDATE  
 version  |time           |content                                                      |download
 ------------|----------------|------------------------------------------------------|----
 0.2.0      |2020.04.03|first version，A small amount bugs    |-
 0.2.3      |2020.04.03|Fix bugs, basically complete functions |-
-0.2.4|2020.04.16|New functions: <br> 1. Add the magnification display. <br>2. Add the resolution display. <br>3. Add new original size function. <br>4. Modify some menus and button positions|[0.2.4.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.4/kankan-0.2.4.dmg.zip)
+0.2.4|2020.04.16|New features: <br> 1. Add the magnification display. <br>2. Add the resolution display. <br>3. Add new original size function. <br>4. Modify some menus and button positions|-
+0.2.5|2020.05.31|New features: <br>1.Globalization support，3 languages supported:<br>**zh-CN**<br>**en**<br>**en-US** <br>More work needs yours help and feedback.<br>2.Fix the bug that you can still right-click to open the menu in Hello page.|[0.2.5.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.5/kankan-0.2.5.dmg.zip)
 
 ## THANKS TO  
 [Electron](https://www.electronjs.org)，This software is developed based on this project

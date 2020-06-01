@@ -1,6 +1,6 @@
 {
   "name": "kankan",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A tool for browsing pictures",
   "main": "main.js",
   "scripts": {
@@ -41,6 +41,13 @@
       {
         "ext": "gif",
         "description": "Dynamic picture",
+        "icon": "static/img/icon.icns",
+        "role": "Viewer",
+        "isPackage": false
+      },
+      {
+        "ext": "bmp",
+        "description": "Bitmap picture",
         "icon": "static/img/icon.icns",
         "role": "Viewer",
         "isPackage": false

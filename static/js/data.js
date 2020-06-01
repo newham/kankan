@@ -1,6 +1,7 @@
 var remote = require('electron').remote;
 var index = remote.getCurrentWindow().id - 1;
 var data = { imgs: [], current: 0, isDark: false };
+var Text
 
 function setTheme(isDark) {
     theme = document.getElementById('theme-css')
@@ -14,6 +15,7 @@ function setTheme(isDark) {
 
 function setGlobalData() {
     data = remote.getGlobal('data')[index];
+    Text = remote.getGlobal('Text')
 }
 
 function setCurrentImg() {

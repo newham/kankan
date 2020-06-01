@@ -1,31 +1,35 @@
 const { app, BrowserWindow, ipcMain, Menu, MenuItem, nativeTheme, dialog, screen } = require('electron')
 const fs = require('fs');
+const { read_i18n } = require('./static/js/lan')
 //存放所有窗口数据
 global.data = []
 //保存打开文件
 let inputFile = ""
 //窗口计数,用于多窗口偏移
 let winCount = 0
+//多语言
+let support_file_types = ['jpg', 'jpeg', 'png', 'gif', 'ico', 'bmp']
+let properties = new Map();
 
 function createMenu() {
     var template = [
         {
             label: "KanKan",
             submenu: [
-                { label: "退出", accelerator: "CmdOrCtrl+Q", click: function () { app.quit() } },
+                { label: Text('exit'), accelerator: "Esc", click: function () { app.quit() } },
                 { type: 'separator' },
                 {
-                    label: "关于", click: function () {
+                    label: Text('about'), click: function () {
                         app.showAboutPanel()
                     }
                 },
             ]
         },
         {
-            label: "文件",
+            label: Text('file'),
             submenu: [
                 {
-                    label: "打开", accelerator: "CmdOrCtrl+N", click: function () {
+                    label: Text('open'), accelerator: "CmdOrCtrl+N", click: function () {
                         showOpenFileWin((ok) => {
                             if (ok) {
                                 createWindow()
@@ -40,7 +44,7 @@ function createMenu() {
     //设置dock
     const dockMenu = Menu.buildFromTemplate([
         {
-            label: '新窗口',
+            label: Text('new_window'),
             click() {
                 //初始化空窗口
                 inputFile = ""
@@ -52,10 +56,14 @@ function createMenu() {
 }
 
 function createWindow() {
-    // 创建菜单
-    createMenu()
-    // 创建窗口
-    createIndexWindow()
+    // 设置语言
+    read_i18n(properties, app.getLocale()).then(() => {
+        // 创建菜单
+        createMenu()
+        // 创建窗口
+        createIndexWindow()
+    })
+
 }
 
 function createIndexWindow() {
@@ -170,17 +178,8 @@ function getFileType(file) {
 }
 
 function isImg(file) {
-    fileType = getFileType(file).toLowerCase()
-    switch (fileType) {
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'gif':
-        case 'ico':
-            return true
-        default:
-            return false
-    }
+    let fileType = getFileType(file).toLowerCase()
+    return support_file_types.indexOf(fileType) >= 0
 }
 
 function setGlobalData() {
@@ -201,12 +200,12 @@ function getImgs(imgFile) {
     }
     console.log("isDark:", imgsData.isDark)
     if (folderPath == "") {
-        console.log('输入文件为空');
+        console.log('empty img');
         return imgsData
     }
     fs.readdir(folderPath, (err, files) => {
         if (err) {
-            console.log('打开文件:' + folderPath + ' 失败');
+            console.log('open file:' + folderPath + ' failed');
             return imgsData
         }
         i = 0;
@@ -249,11 +248,11 @@ nativeTheme.on('updated', () => {
 
 function showOpenFileWin(f) {
     dialog.showOpenDialog({
-        title: "打开文件",
+        title: Text('open_file'),
         defaultPath: "",
         properties: ['openFile'],
         filters: [
-            { name: 'Img', extensions: ['png', 'jpg', 'jpeg', 'ico'] },
+            { name: 'Img', extensions: support_file_types },
         ]
     }).then(result => {
         if (result.filePaths.length < 1) {
@@ -270,3 +269,10 @@ function showOpenFileWin(f) {
         alert(err)
     })
 }
+
+//多语言
+var Text = (key) => {
+    return properties.get(key)
+}
+
+global.Text = Text

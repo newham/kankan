@@ -5,7 +5,7 @@ const exec = require('child_process').exec
 
 function setWallpaper() {
     if (isImgNull()) {
-        alert("没有打开任何图片")
+        alert(Text('img_is_empty'))
         return false
     }
     document.getElementById('btn-wallpaper').disabled = true
@@ -17,10 +17,10 @@ function setWallpaper() {
         console.log('exit: ' + data);
         if (data == '0') {
             console.log('set wallpapger:', imgPath)
-            alert('设置壁纸成功!')
+            alert(Text('set_wallpaper_success'))
         } else {
             console.log('set wallpapger failed')
-            alert('设置壁纸失败!\n - 请检查图片路径或者访问权限')
+            alert(Text('set_wallpaper_failed'))
         }
         document.getElementById('btn-wallpaper').disabled = false
     })
@@ -32,7 +32,7 @@ function setWallpaper() {
 
 function copyFileName() {
     if (isImgNull()) {
-        alert("没有打开任何图片")
+        alert(Text('img_is_empty'))
         return false
     }
     clipboard.writeText(getFileName(getCurrentImg()))
@@ -41,7 +41,7 @@ function copyFileName() {
 
 function copyFilePath() {
     if (isImgNull()) {
-        alert("没有打开任何图片")
+        alert(Text('img_is_empty'))
         return false
     }
     clipboard.writeText(getCurrentImg())
@@ -50,43 +50,43 @@ function copyFilePath() {
 
 function copyFile() {
     if (isImgNull()) {
-        alert("没有打开任何图片")
+        alert(Text('img_is_empty'))
         return false
     }
     const image = nativeImage.createFromPath(getCurrentImg())
     clipboard.writeImage(image)
     console.log('copy file:', getCurrentImg())
-    alert('已复制到剪切板')
+    alert(Text('copied_to_clipboard'))
 }
 
 const menu = new Menu()
 menu.append(new MenuItem({
-    label: '复制文件名', click() {
+    label: Text('copy_file_name'), click() {
         copyFileName()
     }
 }))
 menu.append(new MenuItem({
-    label: '复制路径', click() {
+    label: Text('copy_file_path'), click() {
         copyFilePath()
     }
 }))
 menu.append(new MenuItem({
-    label: '拷贝', click() {
+    label: `✂ ${Text('copy')}`, click() {
         copyFile()
     }
 }))
 menu.append(new MenuItem({ type: 'separator' }))
-menu.append(new MenuItem({ label: '原始大小', click() { realSize() } }))
-menu.append(new MenuItem({ label: '适合页面', click() { initParams(1) } }))
+menu.append(new MenuItem({ label: `↗ ${Text('original_size')}`, click() { realSize() } }))
+menu.append(new MenuItem({ label: `↙ ${Text('fit_to_window_size')}`, click() { initParams(1) } }))
 menu.append(new MenuItem({ type: 'separator' }))
 menu.append(new MenuItem({
-    label: '设为壁纸', click() {
+    label: `♡ ${Text('set_as_wallpaper')}`, click() {
         setWallpaper()
     }
 }))
 menu.append(new MenuItem({ type: 'separator' }))
-menu.append(new MenuItem({ label: '上一张', click() { previous() } }))
-menu.append(new MenuItem({ label: '下一张', click() { next() } }))
+menu.append(new MenuItem({ label: `◀ ${Text('previous')}`, click() { previous() } }))
+menu.append(new MenuItem({ label: `▶ ${Text('next')}`, click() { next() } }))
 // menu.append(new MenuItem({ type: 'separator' }))
 // menu.append(new MenuItem({ label: '复制', type: 'checkbox', checked: true }))
 menu.on('menu-will-close', (e) => {
@@ -94,7 +94,9 @@ menu.on('menu-will-close', (e) => {
 })
 
 window.addEventListener('contextmenu', (e) => {
-    showMenu()
+    if (!isImgNull()) {
+        showMenu()
+    }
     e.preventDefault()
 }, false)
 

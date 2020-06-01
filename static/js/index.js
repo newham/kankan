@@ -77,9 +77,8 @@ document.onkeydown = (event) => {
     event = event || window.event;/*||为或语句，当IE不能识别event时候，就执行window.event 赋值*/
     // console.log(event.keyCode);
     switch (event.keyCode) {/*keyCode:字母和数字键的键码值*/
-        case 27:
-            //esc
-            esc()
+        case 27: //esc
+            // esc()
             break;
         /*37、38、39、40分别对应左上右下*/
         case 37:
@@ -126,7 +125,7 @@ function isImgNull() {
 
 function showItem(item, isShow) {
     console.log('show', item, isShow)
-    itemObj = document.getElementById(item)
+    let itemObj = document.getElementById(item)
     if (isShow) {
         itemObj.style.display = 'inherit'
     } else {
@@ -134,15 +133,22 @@ function showItem(item, isShow) {
     }
 }
 
+function setText(id, text) {
+    let itemObj = document.getElementById(id)
+    itemObj.innerHTML = text
+}
+
 function showTitleBar(isShow) {
     showItem('title-bar', isShow)
-    showItem('btn-to-r',isShow)
-    showItem('btn-to-l',isShow)
+    showItem('btn-to-r', isShow)
+    showItem('btn-to-l', isShow)
     //tool bar
-    showItem('foot-bar',isShow)
+    showItem('foot-bar', isShow)
 }
 
 function showOpenFile(isShow) {
+    setTitle(Text('empty'))
+    setText('btn-open-file',Text('open_file'))
     showItem('open-file', isShow)
 }
 
