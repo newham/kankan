@@ -1,33 +1,32 @@
 # Kan Kan
 
-[English](readme.en.md)  
+[中文](readme.zh.md) 
 
-众所周知，Mac OS自带的图像预览软件使用体验极为糟糕：不能滚轮放大、不支持文件夹下所有图片直接查看。。。  
-为此，我开发了这个软件。  
-Kan Kan是一个帮助你快速看图的Mac OS软件，使用体验类似于win10的“图像”、“看图王”。  
-Kan Kan现已被收录到腾讯[柠檬精选](https://lemon.qq.com/lab/app/kankan.html)。
+As yout can see, the image preview software of Mac OS has a terrible experience:  it can't be zoomed in with the scroll wheel, and it doesn't support viewing all the pictures in the folder directly...   
+So, I developed this software.   
+Kankan is a Mac OS software to help you quickly look pictures. The experience is similar to win10's "image" and "king of pictures" apps.  
 
-## 截图  
-“亮”模式  
+## SCREENSHOT  
+Day Mode  
 <img src="cap_3.png">
-“暗黑”模式  
+Dark Mode  
 <img src="cap_4.png">
 
-## 优势  
-1.完全遵从Mac OS原生的设计语言，UI简洁大方  
-2.原生支持“暗黑模式”，可自动切换，也可手动切换“亮”-“暗”两种主题  
-3.支持滚轮放大图像  
-4.支持拖动图像  
-5.支持浏览文件夹下所有图像  
-6.支持上一张、下一张，循环浏览  
-7.支持设置壁纸  
-8.支持拷贝文件名、文件路径  
-9.支持拷贝图像  
+## WHAT WE HAVE  
+1.Fully comply with the Mac OS native design language, and the UI is simple and generous  
+2."Dark mode" is supported natively, which can be switched automatically or manually between "light" and "dark" themes  
+3.Enlarge image by wheeling support   
+4.Drag image support  
+5.Support browsing all images under the folder  
+6.Support previous, next and cycle browsing  
+7.Support setting wallpaper  
+8.Support to copy file name and path  
+9.Support for copying images  
 
-后续会根据用户反馈增加更多内容。。。  
+More content will be added according to user feedback in the future...  
 
-## 支持的图像格式
-后缀|支持
+## SUPPORTED IMAGE FORMATS
+Suffix|Support
 ---|---
 .jpg|√
 .jpeg|√
@@ -36,39 +35,28 @@ Kan Kan现已被收录到腾讯[柠檬精选](https://lemon.qq.com/lab/app/kanka
 .gif|√
 .ico|√
 
-## 快捷键
-键位|功能
+## SHORTCUTS
+Key|Function
 ---|---
-↓,→|下一张
-↑,←|上一张
-Esc|退出程序
-双击|原始尺寸↔适合页面
+↓,→|Next
+↑,←|Previous
+Esc|Exit app
+Double-click|Original size ↔ Fit to window
 
+## UPDATE  
+version  |time           |content                                                      |download
+------------|----------------|------------------------------------------------------|----
+0.2.0      |2020.04.03|first version，A small amount bugs    |-
+0.2.3      |2020.04.03|Fix bugs, basically complete functions |-
+0.2.4|2020.04.16|New features: <br> 1. Add the magnification display. <br>2. Add the resolution display. <br>3. Add new original size function. <br>4. Modify some menus and button positions|-
+0.2.5|2020.05.31|New features: <br>1.Globalization support，3 languages supported:<br>**zh-CN**<br>**en**<br>**en-US** <br>More work needs yours help and feedback.<br>2.Fix the bug that you can still right-click to open the menu in Hello page.|[0.2.5.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.5/kankan-0.2.5.dmg.zip)
 
+## THANKS TO  
+[Electron](https://www.electronjs.org)，This software is developed based on this project
 
-## 版本更新  
-版本  |时间       |内容              |下载
------|----------|------------------|----
-0.2.0|2020.04.03|第一版，有少量bug    |-
-0.2.3|2020.04.03|修复bug，功能基本完善 |-
-0.2.4|2020.04.16|新增功能：<br>1.增加放大倍数显示。<br>2.增加分辨率显示。<br>3.增加原始大小功能。<br>4.修改部分菜单、按钮位置|-
-0.2.5|2020.05.31|新增功能：<br>1.新增多语言支持，目前支持:<br>**中文(zh-CN)**<br>**英文(en)**<br>**美式英文(en-US)** <br>国际化工作需要你的帮助和反馈。<br>2.修复未打开图像仍然可以右键打开菜单的bug|[0.2.5.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.5/kankan-0.2.5.dmg.zip)
-
-## 国内下载  
-
-### 1.百度网盘(v0.2.5)
-链接: [百度网盘](https://pan.baidu.com/s/1FvkOtgH3_jpC7EOhjQymIQ)  密码: `n0gv`
-
-### 2.腾讯柠檬精选(v0.2.4)
-[kankan-0.2.4.dmg](http://dlied6.qq.com/invc/xfspeed/qqpcmgr/module_update/kankan-0.2.4.dmg)
-
-## 鸣谢  
-[Electron](https://www.electronjs.org)，本软件基于该项目开发  
-[腾讯柠檬](https://lemon.qq.com/lab/)，提供下载和宣传支持
-
-## 版权所有  
+## COPYRIGHT  
 Liu Han
 
-## 反馈   
+## FEEDBACK   
 [newham.cn@gmail.com](mailto:newham.cn@gmail.com)  
 
