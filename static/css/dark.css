@@ -1,8 +1,6 @@
 :root {
-    --title-bar-h: 32px;
-    --title-h: 22px;
     --title-bg-color: #444;
-    --title-bg-img:linear-gradient(#444, #333);
+    --title-bg-img: linear-gradient(#444, #333);
     --title-color: #eee;
     --title-border: 1px solid #333;
     --title-font-size: 13px;
@@ -10,15 +8,15 @@
     --btn-to-bg: rgba(4, 4, 4, 0.5);
     --btn-to-color: #eee;
     --btn-bg: #666;
-    --btn-img:linear-gradient(#666, #555);
-    --btn-bg-hover:#777;
-    --btn-img-hover: linear-gradient( #555,#444);
-    --btn-bg-active:#444;
-    --btn-img-disabled:linear-gradient(rgb(231, 45, 45), rgb(192, 21, 21));
-    --btn-bg-disabled:rgb(231, 45, 45);
-    --btn-color-disabled:#fff;
-    --btn-color:#fff;
-    --btn-border:1px solid #444;
+    --btn-img: linear-gradient(#666, #555);
+    --btn-bg-hover: #777;
+    --btn-img-hover: linear-gradient( #555, #444);
+    --btn-bg-active: #444;
+    --btn-img-disabled: linear-gradient(rgb(231, 45, 45), rgb(192, 21, 21));
+    --btn-bg-disabled: rgb(231, 45, 45);
+    --btn-color-disabled: #fff;
+    --btn-color: #fff;
+    --btn-border: 1px solid #444;
     --tool-padding: 7px;
-    --open-h2-color:#9AE5FD;
+    --open-h2-color: #9AE5FD;
 }

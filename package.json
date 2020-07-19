@@ -1,70 +1,64 @@
 {
-  "name": "kankan",
-  "version": "0.2.5",
-  "description": "A tool for browsing pictures",
-  "main": "main.js",
-  "scripts": {
-    "test": "electron . -t",
-    "start": "electron .",
-    "build_mac": "electron-builder build --mac --x64"
-  },
-  "build": {
-    "productName": "kankan",
-    "appId": "cn.liuhan.kankan",
-    "electronDownload": {
-      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    "name": "kankan",
+    "version": "0.3.0",
+    "description": "A tool for browsing pictures",
+    "main": "main.js",
+    "scripts": {
+        "test": "electron . -t",
+        "start": "electron .",
+        "build_mac": "electron-builder build --mac --x64"
     },
-    "directories": {
-      "output": "out"
+    "build": {
+        "productName": "kankan",
+        "appId": "cn.liuhan.kankan",
+        "electronDownload": {
+            "mirror": "https://npm.taobao.org/mirrors/electron/"
+        },
+        "directories": {
+            "output": "out"
+        },
+        "mac": {
+            "icon": "static/img/icon.icns"
+        },
+        "win": {
+            "icon": "static/img/icon.ico"
+        },
+        "fileAssociations": [{
+                "ext": ["jpg", "jpeg"],
+                "description": "Jpg Image",
+                "role": "Viewer",
+                "isPackage": false
+            },
+            {
+                "ext": "png",
+                "description": "Png Image",
+                "role": "Viewer",
+                "isPackage": false
+            },
+            {
+                "ext": "gif",
+                "description": "Dynamic picture",
+                "role": "Viewer",
+                "isPackage": false
+            },
+            {
+                "ext": ["bmp", "eps"],
+                "description": "Bitmap picture",
+                "role": "Viewer",
+                "isPackage": false
+            },
+            {
+                "ext": ["ico", "icon"],
+                "description": "Icon image",
+                "role": "Viewer",
+                "isPackage": false
+            }
+        ]
     },
-    "mac": {
-      "icon": "static/img/icon.icns"
-    },
-    "win": {
-      "icon": "static/img/icon.ico"
-    },
-    "fileAssociations": [
-      {
-        "ext": ["jpg","jpeg"],
-        "description": "Jpg Image",
-        "icon": "static/img/icon.icns",
-        "role": "Viewer",
-        "isPackage": false
-      },
-      {
-        "ext": "png",
-        "description": "Png Image",
-        "icon": "static/img/icon.icns",
-        "role": "Viewer",
-        "isPackage": false
-      },
-      {
-        "ext": "gif",
-        "description": "Dynamic picture",
-        "icon": "static/img/icon.icns",
-        "role": "Viewer",
-        "isPackage": false
-      },
-      {
-        "ext": "bmp",
-        "description": "Bitmap picture",
-        "icon": "static/img/icon.icns",
-        "role": "Viewer",
-        "isPackage": false
-      },
-      {
-        "ext": ["ico","icon"],
-        "description": "Icon image",
-        "icon": "static/img/icon.icns",
-        "role": "Viewer",
-        "isPackage": false
-      }
-    ]
-  },
-  "author": "liu han",
-  "license": "GPL",
-  "devDependencies": {
-    "electron": "^8.2.0",
-    "electron-builder": "^22.4.1"
-  }
+    "author": "liu han",
+    "license": "GPL",
+    "devDependencies": {
+        "electron": "^8.2.0",
+        "electron-builder": "^22.4.1"
+    }
 }

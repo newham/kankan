@@ -1,7 +1,7 @@
 const { ipcRenderer } = require('electron')
 
-function openFileWin() {
-    ipcRenderer.send('openImg', index)
+function openFileWin(file = 'none') {
+    ipcRenderer.send('openImg', index, file)
 }
 
 ipcRenderer.on('openImg-cb', (event, msg) => {
@@ -10,10 +10,10 @@ ipcRenderer.on('openImg-cb', (event, msg) => {
         //set open file null
         showTitleBar(true)
         showOpenFile(false)
-        //set img
+            //set img
         setGlobalData()
         setCurrentImg()
-        // 监听拖拽、放大
+            // 监听拖拽、放大
         startDrag(document.getElementById("img"), document.getElementById("img"))
     }
 })

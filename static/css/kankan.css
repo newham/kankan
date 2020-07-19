@@ -1,6 +1,13 @@
-:root{
-    --foot-bar-h:22px;
-    --foot-bar-padding:3px;
+:root {
+    --title-bar-h: 32px;
+    --title-h: 22px;
+    --foot-bar-h: 22px;
+    --foot-bar-padding: 3px;
+    /* --open-padding-right: 30px;
+    --open-padding-top: 40px;
+    --open-padding-bottom: 60px;
+    --open-border: 3px;
+    --open-border-radus: 10px; */
 }
 
 body,
@@ -134,12 +141,18 @@ button:disabled {
 }
 
 .open-file {
+    border: var(--open-border) dashed var(--bg-color);
+    border-radius: var(--open-border-radus);
     position: fixed;
-    top: calc(50% - 50px);
+    top: calc(50% - 70px);
     width: 100%;
+    /* top: calc(50% - 70px - var(--open-padding-top)/2 - var(--title-bar-h)/2); */
+    /* left: calc(25% - var(--open-padding-right) - var(--open-border)); */
+    /* width: 50%; */
     text-align: center;
     display: none;
     user-select: none;
+    /* padding: var(--open-padding-top) var(--open-padding-right) var(--open-padding-bottom) var(--open-padding-right); */
 }
 
 .open-file h2 {
@@ -147,7 +160,7 @@ button:disabled {
     user-select: none;
 }
 
-.foot-bar{
+.foot-bar {
     position: fixed;
     /* right: 10px; */
     bottom: 10px;
@@ -163,11 +176,11 @@ button:disabled {
     /* padding: 10px; */
 }
 
-.foot-bar label{
-    padding:5px;
+.foot-bar label {
+    padding: 5px;
     border-radius: 5px;
     margin: 0px;
-    font-size:var(--title-font-size) ;
+    font-size: var(--title-font-size);
     color: var(--btn-to-color);
     background: var(--btn-to-bg);
     /* text-shadow:#000 1px 0 0,#000 0 1px 0,#000 -1px 0 0,#000 0 -1px 0; */

@@ -1,25 +1,23 @@
 const { app, BrowserWindow, ipcMain, Menu, MenuItem, nativeTheme, dialog, screen } = require('electron')
 const fs = require('fs');
-const { read_i18n } = require('./static/js/lan')
-//存放所有窗口数据
-global.data = []
-//保存打开文件
-let inputFile = ""
-//窗口计数,用于多窗口偏移
-let winCount = 0
-//多语言
-let support_file_types = ['jpg', 'jpeg', 'png', 'gif', 'ico', 'bmp']
-let properties = new Map();
+const { read_i18n } = require('./static/js/lan');
+const { isNull } = require('util');
+// ****** 数据 ******
+global.data = [] //存放所有窗口数据
+let inputFile = "" //保存打开文件
+let winCount = 0 //窗口计数,用于多窗口偏移
+let support_file_types = ['jpg', 'jpeg', 'png', 'gif', 'ico', 'bmp'] //支持的图片格式
+let properties = new Map(); //多语言
 
 function createMenu() {
-    var template = [
-        {
+    var template = [{
             label: "KanKan",
             submenu: [
-                { label: Text('exit'), accelerator: "Esc", click: function () { app.quit() } },
+                { label: Text('exit'), accelerator: "Esc", click: function() { app.quit() } },
                 { type: 'separator' },
                 {
-                    label: Text('about'), click: function () {
+                    label: Text('about'),
+                    click: function() {
                         app.showAboutPanel()
                     }
                 },
@@ -27,41 +25,37 @@ function createMenu() {
         },
         {
             label: Text('file'),
-            submenu: [
-                {
-                    label: Text('open'), accelerator: "CmdOrCtrl+N", click: function () {
-                        showOpenFileWin((ok) => {
-                            if (ok) {
-                                createWindow()
-                            }
-                        })
-                    }
-                },
-            ]
+            submenu: [{
+                label: Text('open'),
+                accelerator: "CmdOrCtrl+N",
+                click: function() {
+                    showOpenFileWin((ok) => {
+                        if (ok) {
+                            createWindow()
+                        }
+                    })
+                }
+            }, ]
         },
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
-    //设置dock
-    const dockMenu = Menu.buildFromTemplate([
-        {
-            label: Text('new_window'),
-            click() {
-                //初始化空窗口
-                inputFile = ""
-                createWindow()
-            }
+        //设置dock
+    const dockMenu = Menu.buildFromTemplate([{
+        label: Text('new_window'),
+        click() {
+            //初始化空窗口
+            inputFile = ""
+            createWindow()
         }
-    ])
+    }])
     app.dock.setMenu(dockMenu)
 }
 
 function createWindow() {
     // 设置语言
     read_i18n(properties, app.getLocale()).then(() => {
-        // 创建菜单
-        createMenu()
-        // 创建窗口
-        createIndexWindow()
+        createMenu() // 创建菜单
+        createIndexWindow() // 创建窗口
     })
 
 }
@@ -73,8 +67,8 @@ function createIndexWindow() {
     h = 790
     x = (dW - w) / 2
     y = (dH - h) / 2
-    // console.log(dW, dH, w, h, x, y, winCount, X, Y)
-    // 创建浏览器窗口
+        // console.log(dW, dH, w, h, x, y, winCount, X, Y)
+        // 创建浏览器窗口
     const win = new BrowserWindow({
         title: getFileName(getInputFile()),
         titleBarStyle: "hiddenInset",
@@ -97,7 +91,7 @@ function createIndexWindow() {
     // 绑定数据
     setGlobalData()
 
-    // 并且为你的应用加载index.html
+    // 加载index.html
     win.loadFile('index.html')
 
     // 打开开发者工具
@@ -146,7 +140,7 @@ app.on("open-file", (event, file) => {
 
 function getInputFile() {
     if (process.argv.length >= 3 && inputFile == "" && process.argv[2] != '-t') {
-        inputFile = process.argv[2]//供测试用
+        inputFile = process.argv[2] //供测试用
         process.argv = [] //清除测试用数据
     }
     return inputFile
@@ -166,7 +160,7 @@ function getFileName(file) {
         return ""
     }
     var obj = file.lastIndexOf("/");
-    return file.substr(obj + 1);//文件名
+    return file.substr(obj + 1); //文件名
 }
 
 function getFileType(file) {
@@ -174,7 +168,7 @@ function getFileType(file) {
         return ""
     }
     var obj = file.lastIndexOf(".");
-    return file.substr(obj + 1).toLowerCase();//后缀名
+    return file.substr(obj + 1).toLowerCase(); //后缀名
 }
 
 function isImg(file) {
@@ -186,7 +180,10 @@ function setGlobalData() {
     global.data.push(getImgs(getInputFile()))
 }
 
-function resetGlobalData(id) {
+function resetGlobalData(id, file) {
+    if (!isNull(file)) {
+        inputFile = file
+    }
     global.data[id] = getImgs(getInputFile())
 }
 
@@ -196,7 +193,7 @@ function getImgs(imgFile) {
     var imgsData = {
         current: 0,
         imgs: [],
-        isDark: nativeTheme.shouldUseDarkColors,//设置主题模式
+        isDark: nativeTheme.shouldUseDarkColors, //设置主题模式
     }
     console.log("isDark:", imgsData.isDark)
     if (folderPath == "") {
@@ -216,7 +213,7 @@ function getImgs(imgFile) {
                 imgsData.imgs.push(fileFull);
                 if (filename == file) {
                     imgsData.current = i
-                    // console.log('current',i);
+                        // console.log('current',i);
                 }
                 i++;
             }
@@ -226,16 +223,26 @@ function getImgs(imgFile) {
 }
 
 //打开图片后操作
-ipcMain.on('openImg', (event, id) => {
-    console.log('call back from win:', id)
-    showOpenFileWin((ok) => {
-        if (ok) {
-            resetGlobalData(id)
+ipcMain.on('openImg', (event, id, file) => {
+    console.log('call back from win:', id, file)
+    if (file != 'none') {
+        if (support_file_types.includes(getFileType(getFileName(file)))) {
+            resetGlobalData(id, file)
             event.reply('openImg-cb', 'ok')
         } else {
-            event.reply('openImg-cb', 'failed')
+            console.log('unsupported img type')
         }
-    })
+    } else {
+        showOpenFileWin((ok) => {
+            if (ok) {
+                resetGlobalData(id)
+                event.reply('openImg-cb', 'ok')
+            } else {
+                event.reply('openImg-cb', 'failed')
+            }
+        })
+    }
+
 })
 
 //切换暗-亮模式触发
@@ -261,9 +268,9 @@ function showOpenFileWin(f) {
             return false
         }
         console.log('open', result.filePaths[0])
-        // ipcRenderer.send('openImg', result.filePaths[0])
+            // ipcRenderer.send('openImg', result.filePaths[0])
         inputFile = result.filePaths[0]
-        // 调用f
+            // 调用f
         f(true)
     }).catch(err => {
         alert(err)

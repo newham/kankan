@@ -1,4 +1,3 @@
-
 var max = false;
 
 function maxWindow() {
@@ -56,7 +55,7 @@ function getFileName(file) {
         return ""
     }
     var obj = file.lastIndexOf("/");
-    return file.substr(obj + 1);//文件名
+    return file.substr(obj + 1); //文件名
 }
 
 var params = {
@@ -74,13 +73,13 @@ function esc() {
 
 // 监听键盘事件
 document.onkeydown = (event) => {
-    event = event || window.event;/*||为或语句，当IE不能识别event时候，就执行window.event 赋值*/
+    event = event || window.event; /*||为或语句，当IE不能识别event时候，就执行window.event 赋值*/
     // console.log(event.keyCode);
-    switch (event.keyCode) {/*keyCode:字母和数字键的键码值*/
+    switch (event.keyCode) { /*keyCode:字母和数字键的键码值*/
         case 27: //esc
             // esc()
             break;
-        /*37、38、39、40分别对应左上右下*/
+            /*37、38、39、40分别对应左上右下*/
         case 37:
         case 38:
             previous()
@@ -127,8 +126,10 @@ function showItem(item, isShow) {
     console.log('show', item, isShow)
     let itemObj = document.getElementById(item)
     if (isShow) {
+        document.body.style.setProperty('-webkit-app-region', 'drag')
         itemObj.style.display = 'inherit'
     } else {
+        document.body.style.setProperty('-webkit-app-region', 'none')
         itemObj.style.display = 'none'
     }
 }
@@ -142,20 +143,20 @@ function showTitleBar(isShow) {
     showItem('title-bar', isShow)
     showItem('btn-to-r', isShow)
     showItem('btn-to-l', isShow)
-    //tool bar
+        //tool bar
     showItem('foot-bar', isShow)
 }
 
 function showOpenFile(isShow) {
     setTitle(Text('empty'))
-    setText('btn-open-file',Text('open_file'))
+    setText('btn-open-file', Text('open_file'))
     showItem('open-file', isShow)
 }
 
 window.onload = () => {
     //设置theme btn
     setThemeBtn(data.isDark)
-    //判断数据是否为空
+        //判断数据是否为空
     if (isImgNull()) {
         showTitleBar(false)
         showOpenFile(true)

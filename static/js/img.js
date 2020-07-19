@@ -72,15 +72,15 @@ function bbimg(o) {
 
     // 显示放大倍数
     setZoomPer(params.zoomVal)
-    //移动
-    // if (X != 0 || Y != 0) {
-    //     params.left = params.left - (event.pageX - X)/params.zoomVal
-    //     params.top = params.top - (event.pageY - Y)/params.zoomVal
-    //     o.style.left = params.left + 'px'
-    //     o.style.top = params.top + 'px'
-    // }
-    // X = event.pageX
-    // Y = event.pageY
+        //移动
+        // if (X != 0 || Y != 0) {
+        //     params.left = params.left - (event.pageX - X)/params.zoomVal
+        //     params.top = params.top - (event.pageY - Y)/params.zoomVal
+        //     o.style.left = params.left + 'px'
+        //     o.style.top = params.top + 'px'
+        // }
+        // X = event.pageX
+        // Y = event.pageY
 }
 
 function getZoomRate() {
@@ -91,9 +91,9 @@ function getZoomRate() {
 
 function setZoomPer(zoomVal) {
     rate = getZoomRate()
-    // console.log(img.naturalWidth,img.naturalHeight)
+        // console.log(img.naturalWidth,img.naturalHeight)
     document.getElementById('zoom-per').innerHTML = Math.round(100 * zoomVal * rate) + '%'
-    //
+        //
     setSize()
 }
 
@@ -103,7 +103,7 @@ function setSize() {
 }
 
 //获取相关CSS属性
-var getCss = function (o, key) {
+var getCss = function(o, key) {
     return o.currentStyle ? o.currentStyle[key] : document.defaultView.getComputedStyle(o, false)[key];
 };
 
@@ -124,8 +124,8 @@ function isDrag() {
 }
 
 //拖拽的实现
-var startDrag = function (bar, target, callback) {
-    console.log("start to drag")
+var startDrag = function(bar, target, callback) {
+    console.log("start to on img drag")
 
     if (getCss(target, "left") !== "auto") {
         params.left = getCss(target, "left");
@@ -134,7 +134,7 @@ var startDrag = function (bar, target, callback) {
         params.top = getCss(target, "top");
     }
     //o是移动对象
-    bar.onmousedown = function (event) {
+    bar.onmousedown = function(event) {
         if (!isDrag()) {
             return false
         }
@@ -145,7 +145,7 @@ var startDrag = function (bar, target, callback) {
         if (!event) {
             event = window.event;
             //防止IE文字选中
-            bar.onselectstart = function () {
+            bar.onselectstart = function() {
                 return false;
             }
         }
@@ -153,7 +153,7 @@ var startDrag = function (bar, target, callback) {
         params.currentX = e.clientX;
         params.currentY = e.clientY;
     };
-    document.onmouseup = function () {
+    document.onmouseup = function() {
         if (!isDrag()) {
             return false
         }
@@ -168,7 +168,7 @@ var startDrag = function (bar, target, callback) {
             params.top = getCss(target, "top");
         }
     };
-    document.onmousemove = function (event) {
+    document.onmousemove = function(event) {
         //原始大小禁止拖动
         if (!isDrag()) {
             return false
@@ -178,8 +178,10 @@ var startDrag = function (bar, target, callback) {
         }
         var e = event ? event : window.event;
         if (params.flag) {
-            var nowX = e.clientX, nowY = e.clientY;
-            var disX = nowX - params.currentX, disY = nowY - params.currentY;
+            var nowX = e.clientX,
+                nowY = e.clientY;
+            var disX = nowX - params.currentX,
+                disY = nowY - params.currentY;
             target.style.left = parseInt(params.left) + disX + "px";
             target.style.top = parseInt(params.top) + disY + "px";
             if (typeof callback == "function") {

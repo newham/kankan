@@ -28,12 +28,13 @@ More content will be added according to user feedback in the future...
 ## SUPPORTED IMAGE FORMATS
 Suffix|Support
 ---|---
-.jpg|√
-.jpeg|√
-.png|√
-.bmp|√
-.gif|√
-.ico|√
+.jpg|✅
+.jpeg|✅
+.png|✅
+.bmp|✅
+.gif|✅
+.ico|✅
+.eps|✅
 
 ## SHORTCUTS
 Key|Function
@@ -49,7 +50,8 @@ version  |time           |content                                               
 0.2.0      |2020.04.03|first version，A small amount bugs    |-
 0.2.3      |2020.04.03|Fix bugs, basically complete functions |-
 0.2.4|2020.04.16|New features: <br> 1. Add the magnification display. <br>2. Add the resolution display. <br>3. Add new original size function. <br>4. Modify some menus and button positions|-
-0.2.5|2020.05.31|New features: <br>1.Globalization support，3 languages supported:<br>**zh-CN**<br>**en**<br>**en-US** <br>More work needs yours help and feedback.<br>2.Fix the bug that you can still right-click to open the menu in Hello page.|[0.2.5.dmg.zip](https://github.com/newham/kankan/releases/download/v0.2.5/kankan-0.2.5.dmg.zip)
+0.2.5|2020.05.31|New features: <br>1.Globalization support，3 languages supported:<br>**zh-CN**<br>**en**<br>**en-US** <br>More work needs yours help and feedback.<br>**If you need support from other languages, please give me [feedback](mailto:newham.cn@gmail.com) !**<br>2.Fix the bug that you can still right-click to open the menu in Hello page.|-
+**0.3.0**|2020.07.19|New features: <br>1. Add drag and drop support, drag the picture to the window to open it!<br>2. Add support for EPS format.<br>3. Fix the problem of scrollbar in Y-axis when browsing large images in version <= mac os 10.14. <br>4. Fix the bug that the welcome window cannot be moved.|[0.3.0.dmg.zip](https://github.com/newham/kankan/releases/download/v0.3.0/kankan-0.3.0.dmg.zip)
 
 ## THANKS TO  
 [Electron](https://www.electronjs.org)，This software is developed based on this project
