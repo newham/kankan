@@ -34,11 +34,12 @@ a {
     /* background-image: var(--title-bg-img); */
     height: var(--title-bar-h);
     -webkit-app-region: drag;
-    overflow-x: hidden;
+    overflow: hidden;
     border-bottom: var(--title-border);
     padding-top: var(--tool-padding);
     padding-left: 80px;
     user-select: none;
+    display: none;
     /* padding-right: var(--tool-padding); */
 }
 
@@ -87,7 +88,7 @@ button:disabled {
     line-height: calc(var(--title-bar-h) + var(--tool-padding));
     user-select: none;
     font-size: var(--title-font-size);
-    overflow-x: hidden;
+    overflow: hidden;
     color: var(--title-color);
     display: inline-block;
 }
@@ -177,8 +178,8 @@ button:disabled {
 }
 
 .foot-bar label {
-    padding: 5px;
-    border-radius: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
     margin: 0px;
     font-size: var(--title-font-size);
     color: var(--btn-to-color);

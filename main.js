@@ -3,11 +3,9 @@ const fs = require('fs');
 const { read_i18n } = require('./static/js/lan');
 const { isNull } = require('util');
 // ****** 数据 ******
-global.data = [] //存放所有窗口数据
-let inputFile = "" //保存打开文件
-let winCount = 0 //窗口计数,用于多窗口偏移
+global.data = [] //存放所有窗口的图片数据，每个窗口相互分离
 let support_file_types = ['jpg', 'jpeg', 'png', 'gif', 'ico', 'bmp'] //支持的图片格式
-let properties = new Map(); //多语言
+let properties = new Map(); //缓存多语言的键值对
 
 function createMenu() {
     var template = [{
@@ -26,14 +24,24 @@ function createMenu() {
         {
             label: Text('file'),
             submenu: [{
-                label: Text('open'),
-                accelerator: "CmdOrCtrl+N",
+                label: Text('open_file'),
+                accelerator: "CmdOrCtrl+O",
                 click: function() {
-                    showOpenFileWin((ok) => {
+                    showOpenFileWin((ok, file) => {
                         if (ok) {
-                            createWindow()
+                            // input_file = file
+                            // createWindow()
+                            let win = BrowserWindow.getFocusedWindow()
+                            setImg(file, win.id - 1)
+                            win.webContents.send('openImg-cb', 'ok')
                         }
                     })
+                }
+            }, {
+                label: Text('new_window'),
+                accelerator: "CmdOrCtrl+N",
+                click: function() {
+                    newWindow()
                 }
             }, ]
         },
@@ -41,14 +49,18 @@ function createMenu() {
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
         //设置dock
     const dockMenu = Menu.buildFromTemplate([{
-        label: Text('new_window'),
+        label: Text('new_window'), //新窗口
         click() {
             //初始化空窗口
-            inputFile = ""
-            createWindow()
+            newWindow()
         }
     }])
     app.dock.setMenu(dockMenu)
+}
+
+function newWindow() {
+    input_file = ''
+    createWindow()
 }
 
 function createWindow() {
@@ -57,39 +69,43 @@ function createWindow() {
         createMenu() // 创建菜单
         createIndexWindow() // 创建窗口
     })
+}
 
+function winCount() {
+    return global.data.length
 }
 
 function createIndexWindow() {
-    dW = screen.getPrimaryDisplay().workAreaSize.width
-    dH = screen.getPrimaryDisplay().workAreaSize.height
-    w = 1150
-    h = 790
-    x = (dW - w) / 2
-    y = (dH - h) / 2
-        // console.log(dW, dH, w, h, x, y, winCount, X, Y)
-        // 创建浏览器窗口
+    let dW = screen.getPrimaryDisplay().workAreaSize.width
+    let dH = screen.getPrimaryDisplay().workAreaSize.height
+    let w = dW / 2
+    let h = dH / 3 * 2
+    let w_min = w / 2
+    let h_min = h / 2
+    let x = (dW - w) / 2
+    let y = (dH - h) / 2
+
+    // console.log(dW, dH, w, h, x, y, winCount, X, Y)
+    // 创建浏览器窗口
+
     const win = new BrowserWindow({
-        title: getFileName(getInputFile()),
+        title: '',
         titleBarStyle: "hiddenInset",
-        x: parseInt(x + 10 * winCount),
-        y: parseInt(y + 10 * winCount), //设置偏移
+        x: parseInt(x + 10 * winCount()),
+        y: parseInt(y + 10 * winCount()), //设置偏移
         // transparent:true, //透明度
         // opacity:0.99,
         width: w,
-        minWidth: 650,
+        minWidth: w_min,
         height: h,
-        minHeight: 450,
+        minHeight: h_min,
         webPreferences: {
             nodeIntegration: true
         }
     })
-    winCount += 1
 
-    // 设置dock展示的文件名
-
-    // 绑定数据
-    setGlobalData()
+    // 设置要打开的图像
+    setImg(getInputFile())
 
     // 加载index.html
     win.loadFile('index.html')
@@ -112,8 +128,8 @@ app.on('window-all-closed', () => {
     // if (process.platform !== 'darwin') {
     //     app.quit()
     // }
-    // mac也直接退出
-    app.quit()
+
+    app.quit() // mac也直接退出
 })
 
 app.on('activate', () => {
@@ -130,20 +146,26 @@ app.on('will-finish-launching', () => {
 });
 
 // Event fired When someone drags files onto the icon while your app is running
+// 双击打开图片、将图片拖动到dock图标触发，直接创建新窗口
 app.on("open-file", (event, file) => {
-    inputFile = file
-    if (app.isReady()) {
+    if (!isImg(file)) {
+        return
+    }
+    input_file = file //程序还未启动，双击图片打开前，保存输入文件。随后进入正常的启动流程
+    if (app.isReady()) { //程序已经启动，新开一个窗口
         createWindow()
     }
     event.preventDefault();
 });
 
+let input_file = ''
+
 function getInputFile() {
-    if (process.argv.length >= 3 && inputFile == "" && process.argv[2] != '-t') {
-        inputFile = process.argv[2] //供测试用
+    if (process.argv.length >= 3 && process.argv[2] != '-t') { //从启动参数中获取
+        setImg(process.argv[2])
         process.argv = [] //清除测试用数据
     }
-    return inputFile
+    return input_file
 }
 
 function getPath(file) {
@@ -172,29 +194,31 @@ function getFileType(file) {
 }
 
 function isImg(file) {
-    let fileType = getFileType(file).toLowerCase()
-    return support_file_types.indexOf(fileType) >= 0
+    // let fileType = getFileType(file).toLowerCase()
+    // return support_file_types.indexOf(fileType) >= 0
+    return support_file_types.includes(getFileType(getFileName(file)))
 }
 
-function setGlobalData() {
-    global.data.push(getImgs(getInputFile()))
-}
-
-function resetGlobalData(id, file) {
-    if (!isNull(file)) {
-        inputFile = file
+function setImg(file, id = -1) {
+    // console.log(file, id)
+    if (id < 0) {
+        global.data.push(getImgs(file))
+    } else {
+        global.data[id] = getImgs(file)
     }
-    global.data[id] = getImgs(getInputFile())
 }
 
 function getImgs(imgFile) {
-    filename = getFileName(imgFile)
-    folderPath = getPath(imgFile)
-    var imgsData = {
+    let imgsData = {
         current: 0,
         imgs: [],
         isDark: nativeTheme.shouldUseDarkColors, //设置主题模式
     }
+    if (imgFile == '') {
+        return imgsData
+    }
+    filename = getFileName(imgFile)
+    folderPath = getPath(imgFile)
     console.log("isDark:", imgsData.isDark)
     if (folderPath == "") {
         console.log('empty img');
@@ -226,16 +250,17 @@ function getImgs(imgFile) {
 ipcMain.on('openImg', (event, id, file) => {
     console.log('call back from win:', id, file)
     if (file != 'none') {
-        if (support_file_types.includes(getFileType(getFileName(file)))) {
-            resetGlobalData(id, file)
+        if (isImg(file)) {
+            setImg(file, id)
             event.reply('openImg-cb', 'ok')
         } else {
             console.log('unsupported img type')
+            event.reply('openImg-cb', 'failed')
         }
     } else {
-        showOpenFileWin((ok) => {
+        showOpenFileWin((ok, file) => {
             if (ok) {
-                resetGlobalData(id)
+                setImg(file, id)
                 event.reply('openImg-cb', 'ok')
             } else {
                 event.reply('openImg-cb', 'failed')
@@ -264,16 +289,13 @@ function showOpenFileWin(f) {
     }).then(result => {
         if (result.filePaths.length < 1) {
             console.log('open win closed')
-            f(false)
+            f(false, '')
             return false
         }
         console.log('open', result.filePaths[0])
-            // ipcRenderer.send('openImg', result.filePaths[0])
-        inputFile = result.filePaths[0]
-            // 调用f
-        f(true)
+        f(true, result.filePaths[0])
     }).catch(err => {
-        alert(err)
+        console.log(err)
     })
 }
 

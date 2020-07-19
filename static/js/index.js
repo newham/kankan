@@ -126,10 +126,8 @@ function showItem(item, isShow) {
     console.log('show', item, isShow)
     let itemObj = document.getElementById(item)
     if (isShow) {
-        document.body.style.setProperty('-webkit-app-region', 'drag')
         itemObj.style.display = 'inherit'
     } else {
-        document.body.style.setProperty('-webkit-app-region', 'none')
         itemObj.style.display = 'none'
     }
 }
@@ -148,9 +146,17 @@ function showTitleBar(isShow) {
 }
 
 function showOpenFile(isShow) {
+    //显示\隐藏打开文件
     setTitle(Text('empty'))
     setText('btn-open-file', Text('open_file'))
     showItem('open-file', isShow)
+
+    //设置打开页面可以拖动
+    if (isShow) {
+        document.body.style.setProperty('-webkit-app-region', 'drag')
+    } else {
+        document.body.style.setProperty('-webkit-app-region', 'none')
+    }
 }
 
 window.onload = () => {

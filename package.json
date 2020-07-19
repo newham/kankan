@@ -42,7 +42,7 @@
                 "isPackage": false
             },
             {
-                "ext": ["bmp", "eps"],
+                "ext": ["bmp"],
                 "description": "Bitmap picture",
                 "role": "Viewer",
                 "isPackage": false

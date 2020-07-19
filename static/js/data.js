@@ -7,8 +7,7 @@ function setTheme(isDark) {
     theme = document.getElementById('theme-css')
     if (isDark) {
         theme.href = 'static/css/dark.css'
-    }
-    else {
+    } else {
         theme.href = 'static/css/light.css'
     }
 }
@@ -35,10 +34,9 @@ function setImg(id) {
     }
     //获取指定id的img
     imgFile = data.imgs[id]
-    // 重绘新img
-    setImgSrc(imgFile)
-    // set title
-    setTitle(getFileName(imgFile))
+    setImgSrc(imgFile) // 重绘新img
+    setTitle(`${getFileName(imgFile)} ${id+1}/${data.imgs.length}`) // set title
+
     //log
     console.log("set img:", imgFile)
 }
@@ -46,6 +44,6 @@ function setImg(id) {
 // ******加载本js时执行******
 //读取数据
 setGlobalData()
+
 //设置主题，为了防止“白”->“黑”的生硬
 setTheme(data.isDark)
-// ******加载本js时执行******
