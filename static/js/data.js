@@ -35,7 +35,7 @@ function setImg(id) {
     //获取指定id的img
     imgFile = data.imgs[id]
     setImgSrc(imgFile) // 重绘新img
-    setTitle(`${getFileName(imgFile)} ${id+1}/${data.imgs.length}`) // set title
+    setTitle(`${getFileName(imgFile)}`) // set title
 
     //log
     console.log("set img:", imgFile)

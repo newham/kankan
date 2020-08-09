@@ -47,7 +47,8 @@ button {
     height: calc(var(--title-bar-h) - var(--tool-padding));
     line-height: calc(var(--title-bar-h) - var(--tool-padding)*2);
     padding: 0 8px;
-    margin: 0;
+    /* margin: 0 !important; */
+    /* margin-left: -5px !important; */
     border-radius: 5px;
     background: var(--btn-bg);
     /* background-image: var(--btn-img); */
@@ -178,8 +179,8 @@ button:disabled {
 }
 
 .foot-bar label {
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 3px 8px;
+    border-radius: 12px;
     margin: 0px;
     font-size: var(--title-font-size);
     color: var(--btn-to-color);

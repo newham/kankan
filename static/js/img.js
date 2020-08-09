@@ -95,11 +95,17 @@ function setZoomPer(zoomVal) {
     document.getElementById('zoom-per').innerHTML = Math.round(100 * zoomVal * rate) + '%'
         //
     setSize()
+    setIndex()
 }
 
 function setSize() {
     img = document.getElementById('img')
     document.getElementById('zoom-per').innerHTML += ' ' + img.naturalWidth + "x" + img.naturalHeight
+}
+
+function setIndex() {
+    index_info = ` ${data.current+1}/${data.imgs.length}`
+    document.getElementById('zoom-per').innerHTML += index_info
 }
 
 //获取相关CSS属性
