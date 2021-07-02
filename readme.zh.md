@@ -69,7 +69,7 @@ Esc|退出程序
 
 ## 国内下载  
 
-### 1.百度网盘(v0.3.1)
+### 1.百度网盘
 链接: [百度网盘](https://pan.baidu.com/s/1FvkOtgH3_jpC7EOhjQymIQ)  密码: `n0gv`
 
 ### 2.腾讯柠檬精选(v0.2.4)
