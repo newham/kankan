@@ -147,9 +147,11 @@ function showTitleBar(isShow) {
 
 function showOpenFile(isShow) {
     //显示\隐藏打开文件
-    setTitle(Text('empty'))
-    setText('btn-open-file', Text('open_file'))
-    showItem('open-file', isShow)
+    setTitle(Text('empty'));
+    setText('drag-here', Text('drag_here'));
+    setText('btn-open-file', Text('open_file'));
+    setText('version', `${process.env.npm_package_version}`);
+    showItem('open-file', isShow);
 
     //设置打开页面可以拖动
     if (isShow) {

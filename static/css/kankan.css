@@ -3,6 +3,7 @@
     --title-h: 22px;
     --foot-bar-h: 22px;
     --foot-bar-padding: 3px;
+    --tool-bar-w: 240px;
     /* --open-padding-right: 30px;
     --open-padding-top: 40px;
     --open-padding-bottom: 60px;
@@ -81,8 +82,8 @@ button:disabled {
     display: none;
     /* -webkit-app-region: drag; */
     position: fixed;
-    left: 230px;
-    right: 230px;
+    left: var(--tool-bar-w);
+    right: var(--tool-bar-w);
     top: 0;
     /* padding-top: 9px; */
     height: calc(var(--title-bar-h) + var(--tool-padding));
@@ -160,6 +161,18 @@ button:disabled {
 .open-file h2 {
     color: var(--open-h2-color);
     user-select: none;
+}
+
+.open-file label {
+    font-size: 12px;
+    user-select: none;
+    color: var(--btn-color);
+}
+
+.open-file span {
+    font-size: 16px;
+    user-select: none;
+    color: var(--btn-color);
 }
 
 .foot-bar {
