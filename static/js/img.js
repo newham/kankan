@@ -1,6 +1,6 @@
 var menuLock = false;
 
-function initParams(zoomVal, rotateVal = 0) {
+function initParams(zoomVal) {
     var img = document.getElementById("img")
     x = 0;
     y = 0;
@@ -10,7 +10,7 @@ function initParams(zoomVal, rotateVal = 0) {
     }
 
     params = {
-        rotateVal: rotateVal, //旋转角度
+        rotateVal: 0, //旋转角度
         zoomVal: zoomVal, //放大倍数
         left: x,
         top: y,
@@ -26,7 +26,7 @@ function initParams(zoomVal, rotateVal = 0) {
         img.style.transform = `rotate(${params.rotateVal}deg)scale(${params.zoomVal})`;
     }
 
-    setZoomPer(params.zoomVal)
+    setZoomPer()
 }
 
 function realSize() {
@@ -64,23 +64,26 @@ function bbimg(o) {
     // console.log(X+'%' )
     // o.style.transformOrigin = X + "px " + Y + "px";
     // 放大
-    if (params.zoomVal < 0.2) {
+
+    // 旋转+缩放
+    if (params.zoomVal < 0.2) { //最小不能小于0.2倍
         params.zoomVal = 0.2;
     }
-    // 旋转+缩放
-    o.style.transform = `rotate(${params.rotateVal}deg)scale(${params.zoomVal})`;
+    // 放大倍数上限是系统默认的
+    o.style.transform = `rotate(${params.rotateVal}deg)scale(${params.zoomVal})`; //旋转+放大
+
 
     // 显示放大倍数
-    setZoomPer(params.zoomVal)
-        //移动
-        // if (X != 0 || Y != 0) {
-        //     params.left = params.left - (event.pageX - X)/params.zoomVal
-        //     params.top = params.top - (event.pageY - Y)/params.zoomVal
-        //     o.style.left = params.left + 'px'
-        //     o.style.top = params.top + 'px'
-        // }
-        // X = event.pageX
-        // Y = event.pageY
+    setZoomPer();
+    //移动
+    // if (X != 0 || Y != 0) {
+    //     params.left = params.left - (event.pageX - X)/params.zoomVal
+    //     params.top = params.top - (event.pageY - Y)/params.zoomVal
+    //     o.style.left = params.left + 'px'
+    //     o.style.top = params.top + 'px'
+    // }
+    // X = event.pageX
+    // Y = event.pageY
 }
 
 function getZoomRate() {
@@ -89,13 +92,13 @@ function getZoomRate() {
     return rate
 }
 
-function setZoomPer(zoomVal) {
-    rate = getZoomRate()
-        // console.log(img.naturalWidth,img.naturalHeight)
-    document.getElementById('zoom-per').innerHTML = Math.round(100 * zoomVal * rate) + '%'
-        //
-    setSize()
-    setIndex()
+function setZoomPer() {
+    rate = getZoomRate();
+    // console.log(img.naturalWidth,img.naturalHeight)
+    document.getElementById('zoom-per').innerHTML = Math.round(100 * params.zoomVal * rate) + '%';
+    setRotate();
+    setSize();
+    setIndex();
 }
 
 function setSize() {
@@ -106,6 +109,10 @@ function setSize() {
 function setIndex() {
     index_info = ` ${data.current+1}/${data.imgs.length}`
     document.getElementById('zoom-per').innerHTML += index_info
+}
+
+function setRotate() {
+    document.getElementById('zoom-per').innerHTML += ` ${params.rotateVal}°`
 }
 
 //获取相关CSS属性
@@ -208,5 +215,6 @@ function rotate(d) {
     }
 
     img = document.getElementById('img')
-    img.style.transform = `rotate(${params.rotateVal}deg)`;
+    img.style.transform = `rotate(${params.rotateVal}deg)scale(${params.zoomVal})`; //旋转保持缩放比例
+    setZoomPer(); //显示缩放比等信息
 }

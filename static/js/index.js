@@ -138,11 +138,17 @@ function setText(id, text) {
 }
 
 function showTitleBar(isShow) {
-    showItem('title-bar', isShow)
-    showItem('btn-to-r', isShow)
-    showItem('btn-to-l', isShow)
-        //tool bar
-    showItem('foot-bar', isShow)
+    showItem('title-bar', isShow);
+    showItem('btn-to-r', isShow);
+    showItem('btn-to-l', isShow);
+    //tool bar
+    showItem('foot-bar', isShow);
+}
+
+function setVersion() {
+    // json = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    // version = json.version;
+    setText('version', '0.4.0');
 }
 
 function showOpenFile(isShow) {
@@ -150,7 +156,7 @@ function showOpenFile(isShow) {
     setTitle(Text('empty'));
     setText('drag-here', Text('drag_here'));
     setText('btn-open-file', Text('open_file'));
-    setText('version', `${process.env.npm_package_version}`);
+    setVersion();
     showItem('open-file', isShow);
 
     //设置打开页面可以拖动
