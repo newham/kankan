@@ -81,8 +81,8 @@ button:disabled {
     display: none;
     /* -webkit-app-region: drag; */
     position: fixed;
-    left: 150px;
-    right: 170px;
+    left: 230px;
+    right: 230px;
     top: 0;
     /* padding-top: 9px; */
     height: calc(var(--title-bar-h) + var(--tool-padding));
@@ -182,6 +182,7 @@ button:disabled {
     padding: 3px 8px;
     border-radius: 12px;
     margin: 0px;
+    font-weight: bolder;
     font-size: var(--title-font-size);
     color: var(--btn-to-color);
     background: var(--btn-to-bg);

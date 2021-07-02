@@ -9,9 +9,9 @@ Kan Kan现已被收录到腾讯[柠檬精选](https://lemon.qq.com/lab/app/kanka
 
 ## 截图  
 “亮”模式  
-<img src="cap_3.png">
+![Day Mode](cap_3.png)
 “暗黑”模式  
-<img src="cap_4.png">
+![Dark Mode](cap_4.png)
 
 ## 优势  
 1.完全遵从Mac OS原生的设计语言，UI简洁大方  
@@ -44,7 +44,18 @@ Kan Kan现已被收录到腾讯[柠檬精选](https://lemon.qq.com/lab/app/kanka
 Esc|退出程序
 双击|原始尺寸↔适合页面
 
-
+## 按钮功能
+按钮|功能
+---|---
+◀|上一张
+▶|下一张
+↗|最大化
+↙|最小化
+✂|复制到剪切板
+♡|设为壁纸（需要授权访问Finder）
+↺|逆时针旋转图片
+↻|顺时针旋转图片
+◐|切换到深色主题
 
 ## 版本更新  
 版本  |时间       |内容              |下载
@@ -53,7 +64,8 @@ Esc|退出程序
 0.2.3|2020.04.03|修复bug，功能基本完善 |-
 0.2.4|2020.04.16|新增功能：<br>1.增加放大倍数显示。<br>2.增加分辨率显示。<br>3.增加原始大小功能。<br>4.修改部分菜单、按钮位置|-
 0.2.5|2020.05.31|新增功能：<br>1.新增多语言支持，目前支持:<br>**中文(zh-CN)**<br>**英文(en)**<br>**美式英文(en-US)** <br>国际化工作需要你的帮助和反馈。<br>2.修复未打开图像仍然可以右键打开菜单的bug|-
-**0.3.1**|2020.08.09|新增功能：<br>1.新增拖拽支持，将图片拖拽至窗口即可打开！<br>2.修复浏览大图时y轴出现滚动条的bug.<br>3.修复欢迎界面无法移动的bug.|[0.3.1.dmg.zip](https://github.com/newham/kankan/releases/download/v0.3.1/kankan-0.3.1.dmg.zip)
+0.3.1|2020.08.09|新增功能：<br>1.新增拖拽支持，将图片拖拽至窗口即可打开！<br>2.修复浏览大图时y轴出现滚动条的bug.<br>3.修复欢迎界面无法移动的bug.|-
+***0.4.0**|2021.07.02|新特性：支持顺时针/逆时针旋转图片！|[0.4.0.dmg.zip](https://github.com/newham/kankan/releases/download/v0.4.0/kankan-0.4.0.dmg.zip)
 
 ## 国内下载  
 
@@ -72,4 +84,8 @@ Liu Han
 
 ## 反馈   
 [newham.cn@gmail.com](mailto:newham.cn@gmail.com)  
+
+## 支持我
+[![微信赞赏](https://z3.ax1x.com/2021/07/02/R6iKDs.jpg)](https://imgtu.com/i/R6iKDs)
+
 

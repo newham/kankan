@@ -1,16 +1,17 @@
 var menuLock = false;
 
-function initParams(zoomVal) {
+function initParams(zoomVal, rotateVal = 0) {
     var img = document.getElementById("img")
-    x = 0
-    y = 0
+    x = 0;
+    y = 0;
     if (img) {
         x = (document.body.offsetWidth - img.offsetWidth) / 2
         y = (document.body.offsetHeight - img.offsetHeight) / 2
     }
 
     params = {
-        zoomVal: zoomVal,
+        rotateVal: rotateVal, //旋转角度
+        zoomVal: zoomVal, //放大倍数
         left: x,
         top: y,
         currentX: 0,
@@ -21,7 +22,8 @@ function initParams(zoomVal) {
     if (img) {
         img.style.left = parseInt(params.left) + "px";
         img.style.top = parseInt(params.top) + "px";
-        img.style.transform = "scale(" + params.zoomVal + ")";
+        // img.style.transform = "scale(" + params.zoomVal + ")"; //old
+        img.style.transform = `rotate(${params.rotateVal}deg)scale(${params.zoomVal})`;
     }
 
     setZoomPer(params.zoomVal)
@@ -62,13 +64,11 @@ function bbimg(o) {
     // console.log(X+'%' )
     // o.style.transformOrigin = X + "px " + Y + "px";
     // 放大
-    if (params.zoomVal >= 0.2) {
-        o.style.transform = "scale(" + params.zoomVal + ")";
-    } else {
+    if (params.zoomVal < 0.2) {
         params.zoomVal = 0.2;
-        o.style.transform = "scale(" + params.zoomVal + ")";
-        // return false;
     }
+    // 旋转+缩放
+    o.style.transform = `rotate(${params.rotateVal}deg)scale(${params.zoomVal})`;
 
     // 显示放大倍数
     setZoomPer(params.zoomVal)
@@ -200,3 +200,13 @@ var startDrag = function(bar, target, callback) {
         }
     }
 };
+
+//旋转
+function rotate(d) {
+    if (d != 0) {
+        params.rotateVal = (params.rotateVal + d * 90) % 360;
+    }
+
+    img = document.getElementById('img')
+    img.style.transform = `rotate(${params.rotateVal}deg)`;
+}

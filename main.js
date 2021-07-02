@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, Menu, MenuItem, nativeTheme, dialog, screen
 const fs = require('fs');
 const { read_i18n } = require('./static/js/lan');
 const { isNull } = require('util');
+app.allowRendererProcessReuse = true;
 // ****** 数据 ******
 global.data = [] //存放所有窗口的图片数据，每个窗口相互分离
 let support_file_types = ['jpg', 'jpeg', 'png', 'gif', 'ico', 'bmp'] //支持的图片格式
@@ -217,8 +218,8 @@ function getImgs(imgFile) {
     if (imgFile == '') {
         return imgsData
     }
-    filename = getFileName(imgFile)
-    folderPath = getPath(imgFile)
+    filename = getFileName(imgFile);
+    folderPath = getPath(imgFile);
     console.log("isDark:", imgsData.isDark)
     if (folderPath == "") {
         console.log('empty img');
@@ -248,7 +249,7 @@ function getImgs(imgFile) {
 
 //打开图片后操作
 ipcMain.on('openImg', (event, id, file) => {
-    console.log('call back from win:', id, file)
+    // console.log('call back from win:', id, file)
     if (file != 'none') {
         if (isImg(file)) {
             setImg(file, id)
